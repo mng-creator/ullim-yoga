@@ -1,14 +1,15 @@
 ---
-// Change only this value when the Soft Open announcement is approved.
+// Through 2026-09-20: keep coming-soon visible.
+// On 2026-09-21: change closingState to 'soft-open' and rebuild (no automatic switch).
 const closingState: 'coming-soon' | 'soft-open' = 'coming-soon';
 const messages = {
   'coming-soon': {
     title: '곧 만나요.',
-    details: ['9.21 상담 및 예약을 시작합니다.', '10월 정식 오픈 예정입니다.'],
+    details: ['9.21 상담 및 예약 시작', '10월 정식 오픈 예정'],
   },
   'soft-open': {
-    title: '상담 및 예약이 시작되었습니다.',
-    details: ['소프트 오픈 기간에도 수업에 참여하실 수 있습니다.', '10월 정식 오픈 예정입니다.'],
+    title: '상담 및 예약이 시작되었어요',
+    details: ['Soft Open 기간에도 수업에 참여하실 수 있어요', '10월 정식 오픈 예정입니다'],
   },
 };
 const message = messages[closingState];
@@ -17,20 +18,76 @@ const message = messages[closingState];
   <div class="closing-copy">
     <h2 id="closing-title">{message.title}</h2>
     <div class="closing-details">
-      {message.details.map(detail => <p>{detail}</p>)}
+      {message.details.map(detail => <p class="message-strip">{detail}</p>)}
     </div>
   </div>
 </section>
 <style>
-  .closing-info { padding-block: clamp(40px, 5vw, 80px) 120px; }
-  .closing-copy { width: 100%; margin-inline: auto; text-align: center; }
-  h2 { margin: 0 0 32px; color: #000; font-size: clamp(32px, 3.2vw, 48px); font-weight: 400; line-height: 1.5; letter-spacing: -.035em; word-break: keep-all; }
-  .closing-details { display: flex; justify-content: center; align-items: flex-start; gap: 10px; }
-  p { flex: 0 1 auto; width: fit-content; max-width: 100%; margin: 0; padding: 8px 14px; background: var(--color-burgundy); color: var(--color-paper); font-size: 14px; line-height: 1.7; letter-spacing: -.02em; word-break: keep-all; text-wrap: pretty; }
+  .closing-info {
+    --strip-pink: #f7ecee;
+    --strip-sage: #dce2d3;
+    padding-block: clamp(88px, 9vw, 144px) clamp(144px, 15vw, 224px);
+  }
+  .closing-copy { width: 100%; max-width: 1040px; margin-inline: auto; }
+  h2 {
+    margin: 0 0 clamp(52px, 5.5vw, 78px);
+    color: var(--color-ink);
+    text-align: center;
+    font-size: clamp(32px, 3.2vw, 48px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -.035em;
+    word-break: keep-all;
+    text-wrap: balance;
+  }
+  .closing-details {
+    display: flex;
+    flex-direction: column;
+    width: min(64vw, 880px);
+    max-width: 100%;
+    margin-inline: auto;
+    isolation: isolate;
+    padding: 12px 8px;
+  }
+  .message-strip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    margin: 0;
+    padding: 8px clamp(26px, 3vw, 44px);
+    font-size: clamp(16px, 1.45vw, 19px);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -.035em;
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+  .message-strip:first-child {
+    width: min(46vw, 620px);
+    align-self: flex-start;
+    background: var(--color-burgundy);
+    color: var(--strip-pink);
+    transform: rotate(-.8deg);
+  }
+  .message-strip:last-child {
+    z-index: 1;
+    width: min(40vw, 550px);
+    align-self: flex-end;
+    margin-top: -14px;
+    background: var(--strip-sage);
+    color: var(--color-burgundy);
+    transform: rotate(.7deg);
+  }
   @media (max-width: 700px) {
-    .closing-info { padding-bottom: 96px; }
-    h2 { margin-bottom: 28px; font-size: 32px; }
-    .closing-details { flex-direction: column; align-items: center; gap: 10px; }
-    p { font-size: 13px; padding: 8px 12px; }
+    .closing-info { padding-block: 72px 128px; }
+    h2 { margin-bottom: 52px; font-size: 30px; }
+    .closing-details { width: 100%; max-width: 480px; margin-inline: auto; padding: 8px 3px; }
+    .message-strip { min-height: 46px; padding: 8px 18px; font-size: clamp(14px, 3.6vw, 16px); line-height: 1.5; }
+    .message-strip:first-child { width: 96%; }
+    .message-strip:last-child { width: 86%; margin-top: -7px; padding-inline: 16px; }
   }
 </style>

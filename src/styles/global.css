@@ -25,3 +25,36 @@ a { color: inherit; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 12px 18px; background: var(--color-paper); transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
+
+html[data-theme='night'] {
+  color-scheme: dark;
+  --color-paper: #211d1b;
+  --color-ink: #f3f0e8;
+  --color-muted: #b8b7aa;
+  --color-line: #716c62;
+}
+html[data-theme='night'] .closing-info {
+  --strip-sage: #353b32;
+  --strip-pink: #f7ecee;
+}
+html[data-theme='night'] .message-strip:last-child { color: #e5c4cd; }
+/* Original black SVG artwork remains intact on a warm paper backing. */
+html[data-theme='night'] img[src$='.svg'] {
+  background-color: transparent;
+}
+
+/* Transparent monochrome brand SVGs become light artwork on the night background.
+   Raster photography remains completely untouched. */
+html[data-theme='night'] img[src$='.svg']:not([data-keep-svg-color]) {
+  filter: invert(1) brightness(1.08) sepia(.06);
+}
+body, .site-header, #site-menu, .menu-toggle, .mobile-meta-surface,
+.floating-meta, .skip-link, .marquee, .message-strip, h2, p, a, img[src$='.svg'] {
+  transition: background-color 500ms ease, color 500ms ease, border-color 500ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  body, .site-header, #site-menu, .menu-toggle, .mobile-meta-surface,
+  .floating-meta, .skip-link, .marquee, .message-strip, h2, p, a, img[src$='.svg'] {
+    transition: none;
+  }
+}

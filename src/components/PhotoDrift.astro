@@ -32,6 +32,18 @@ const photos = [
   .photo-group .exterior { width: auto; height: calc(var(--photo-unit) * 1.14); aspect-ratio: 2340 / 1331; object-fit: contain; margin-top: calc(var(--photo-unit) * .22); }
   .photo-drift::-webkit-scrollbar { display: none; }
   .photo-drift.is-dragging { cursor: grabbing; }
+  /* Float within the existing 12px bottom clearance; matching copies stay
+     in phase so horizontal loop wrapping remains seamless. */
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-group img { animation: photo-float 12s ease-in-out infinite; animation-delay: -3s; }
+    .photo-group img:nth-child(2n) { --float-distance: 8px; animation-duration: 15s; animation-delay: -9s; }
+    .photo-group img:nth-child(3n) { --float-distance: 6px; animation-duration: 17s; animation-delay: -5s; }
+    .photo-group img:nth-child(4n) { --float-distance: 9px; animation-duration: 14s; animation-delay: -11s; }
+  }
+  @keyframes photo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(var(--float-distance, 10px)); }
+  }
   @media (max-width: 700px) { .photo-drift { --photo-unit: 170px; --photo-gap: 32px; } }
 
 </style>
@@ -58,8 +70,8 @@ const photos = [
           strip.scrollLeft += velocity * dt;
           velocity *= Math.pow(.94, dt / 16.67);
         } else if (!reduced.matches && time > resumeAt) {
-          // About 6px/s: twice the original drift, still slower than the marquee.
-          driftCarry += dt * .006;
+          // About 9px/s: clearly visible while remaining calm.
+          driftCarry += dt * .009;
           if (driftCarry >= 1) { const pixels = Math.floor(driftCarry); strip.scrollLeft += pixels; driftCarry -= pixels; }
         }
         wrap();

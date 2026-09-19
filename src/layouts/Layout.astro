@@ -22,6 +22,15 @@ const ogImageURL = new URL(ogImagePath, publicOrigin).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f0e8" />
+    <script is:inline>
+      // Restore only an explicit choice from this tab, before the first paint.
+      try {
+        if (sessionStorage.getItem('ullim-theme') === 'night') {
+          document.documentElement.dataset.theme = 'night';
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#211d1b');
+        }
+      } catch { /* Default to day when storage is unavailable. */ }
+    </script>
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
