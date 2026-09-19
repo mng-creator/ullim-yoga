@@ -4,6 +4,7 @@ const photos = [
   { file: '3.png', alt: '선반에 가지런히 놓인 요가 매트', shape: 'small' },
   { file: '2.png', alt: '싱잉볼이 놓인 밝은 수련실', shape: 'wide' },
   { file: '4.png', alt: '커튼 옆 편안하게 쉬어갈 수 있는 의자', shape: 'low' },
+  { file: 'ullimyoga-studio-night.png', alt: '밤에 조명이 켜진 울림요가 스튜디오 외관', shape: 'exterior', width: 2340, height: 1331 },
   { file: '5.png', alt: '해가 진 뒤 불이 켜진 울림요가 간판', shape: 'small' },
   { file: '7.png', alt: '작은 테이블 위 조명과 차 한 잔', shape: 'portrait' },
   { file: '6.png', alt: '건물 밖에서 바라본 요가 스튜디오 간판', shape: 'wide' },
@@ -13,8 +14,8 @@ const photos = [
   <div class="photo-track">
     {[0, 1, 2].map((copy) => (
       <div class="photo-group" aria-hidden={copy !== 1 ? 'true' : undefined}>
-        {photos.map(({ file, alt, shape }) => (
-          <img class={shape} src={`/images/space/${file}`} width="2400" height="3200" alt={copy !== 1 ? '' : alt} loading="lazy" decoding="async" draggable="false" />
+        {photos.map(({ file, alt, shape, width = 2400, height = 3200 }) => (
+          <img class={shape} src={`/images/space/${file}`} width={width} height={height} alt={copy !== 1 ? '' : alt} loading="lazy" decoding="async" draggable="false" />
         ))}
       </div>
     ))}
@@ -28,6 +29,7 @@ const photos = [
   .photo-group .small { width: calc(var(--photo-unit) * .64); height: calc(var(--photo-unit) * .86); margin-top: calc(var(--photo-unit) * .38); }
   .photo-group .wide { width: calc(var(--photo-unit) * 1.2); height: calc(var(--photo-unit) * .9); margin-top: calc(var(--photo-unit) * .16); }
   .photo-group .low { width: calc(var(--photo-unit) * .86); height: calc(var(--photo-unit) * 1.14); margin-top: calc(var(--photo-unit) * .46); }
+  .photo-group .exterior { width: auto; height: calc(var(--photo-unit) * 1.14); aspect-ratio: 2340 / 1331; object-fit: contain; margin-top: calc(var(--photo-unit) * .22); }
   .photo-drift::-webkit-scrollbar { display: none; }
   .photo-drift.is-dragging { cursor: grabbing; }
   @media (max-width: 700px) { .photo-drift { --photo-unit: 170px; --photo-gap: 32px; } }
@@ -56,8 +58,8 @@ const photos = [
           strip.scrollLeft += velocity * dt;
           velocity *= Math.pow(.94, dt / 16.67);
         } else if (!reduced.matches && time > resumeAt) {
-          // About 3px/s: much slower than the text marquee.
-          driftCarry += dt * .003;
+          // About 6px/s: twice the original drift, still slower than the marquee.
+          driftCarry += dt * .006;
           if (driftCarry >= 1) { const pixels = Math.floor(driftCarry); strip.scrollLeft += pixels; driftCarry -= pixels; }
         }
         wrap();

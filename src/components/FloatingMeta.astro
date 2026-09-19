@@ -2,6 +2,7 @@
 // TODO: Set the studio's verified official email to enable the mailto contact.
 const inquiryEmail: string = '';
 ---
+<div class="mobile-meta-surface" aria-hidden="true"></div>
 <p class="floating-meta floating-location" data-floating-ink lang="en">MORAN · SEONGNAM</p>
 {inquiryEmail
   ? <a class="floating-meta floating-inquiries" data-floating-ink lang="en" href={`mailto:${inquiryEmail}`}>INQUIRIES ↗</a>
@@ -11,5 +12,9 @@ const inquiryEmail: string = '';
   .floating-location { left: var(--page-gutter); pointer-events: none; }
   .floating-inquiries { right: var(--page-gutter); }
   a:hover { text-decoration: underline; }
-  @media (max-width: 700px) { .floating-meta { bottom: max(16px, env(safe-area-inset-bottom)); font-size: 9px; } }
+  .mobile-meta-surface { display: none; }
+  @media (max-width: 700px) {
+    .mobile-meta-surface { display: block; position: fixed; inset: auto 0 0; height: calc(max(16px, env(safe-area-inset-bottom)) + 24px); background: var(--color-paper); z-index: 29; pointer-events: none; }
+    .floating-meta { bottom: max(16px, env(safe-area-inset-bottom)); font-size: 9px; color: var(--color-ink); }
+  }
 </style>

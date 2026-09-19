@@ -1,10 +1,19 @@
 ---
 import '../styles/global.css';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 interface Props { title?: string; description?: string; }
 const {
-  title = 'Ullim Yoga Studio — Yoga · Sound Bath | 성남 모란',
-  description = '요가와 사운드배스를 통해 지금의 몸을 천천히 알아가는 공간. 성남 모란, 울림요가 스튜디오. Coming soon.',
+  title = '울림요가 | Ullim Yoga Studio',
+  description = '움직임과 회복을 위한 소규모 웰니스 스튜디오 · 성남 모란',
 } = Astro.props;
+const publicOrigin = 'https://ullim-yoga.vercel.app';
+const canonicalURL = new URL(Astro.url.pathname, publicOrigin).href;
+// Dedicated studio illustration preview on warm ivory.
+// Enable image metadata only when the real asset exists, never a broken URL.
+const ogImagePath = '/images/og/ullim-yoga-og.png';
+const hasOgImage = existsSync(resolve('public', ogImagePath.slice(1)));
+const ogImageURL = new URL(ogImagePath, publicOrigin).href;
 ---
 <!doctype html>
 <html lang="ko">
@@ -13,9 +22,23 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f0e8" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {hasOgImage && <>
+      <meta property="og:image" content={ogImageURL} />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="울림요가 스튜디오 건물 일러스트" />
+      <meta name="twitter:image" content={ogImageURL} />
+      <meta name="twitter:image:alt" content="울림요가 스튜디오 건물 일러스트" />
+    </>}
     <title>{title}</title>
   </head>
   <body>
