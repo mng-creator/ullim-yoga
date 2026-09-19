@@ -1,0 +1,63 @@
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Ullim Yoga Studio 홈">
+      <img src="/svg/logo-en-horizontal-black.svg" width="338" height="36" alt="Ullim Yoga Studio" />
+  </a>
+  <button class="menu-toggle" popovertarget="site-menu" lang="en">MENU</button>
+</header>
+<nav id="site-menu" popover aria-label="메인 메뉴">
+    <a href="#about" lang="en">ABOUT</a>
+    <a href="#classes" lang="en">CLASSES</a>
+    <a href="#visit" lang="en">VISIT</a>
+</nav>
+
+<script>
+  const menu = document.querySelector<HTMLElement>('#site-menu');
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.hidePopover();
+      const target = document.querySelector<HTMLElement>(link.hash);
+      target?.setAttribute('tabindex', '-1');
+      target?.focus({ preventScroll: true });
+    });
+  });
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 30;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px var(--page-gutter);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    pointer-events: none;
+  }
+  .brand { width: clamp(150px, 13vw, 190px); pointer-events: auto; }
+  .menu-toggle {
+    border: 0;
+    padding: 12px 0 12px 12px;
+    background: none;
+    color: var(--color-ink);
+    pointer-events: auto;
+    font: 11px var(--font-sans);
+    letter-spacing: .12em;
+    cursor: pointer;
+  }
+  nav {
+    position: fixed;
+    inset: 94px var(--page-gutter) auto auto;
+    margin: 0;
+    border: 0;
+    padding: 24px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  nav a { display: block; padding-block: 12px; font-size: 12px; letter-spacing: .1em; text-underline-offset: 5px; }
+  @media (max-width: 700px) {
+    .site-header { padding-block: 20px; }
+    nav { top: 76px; }
+  }
+</style>

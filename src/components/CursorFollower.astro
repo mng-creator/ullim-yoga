@@ -1,0 +1,97 @@
+<div class="cursor-layer" aria-hidden="true">
+  <div class="cursor-follower"></div>
+</div>
+
+<script>
+  const circle = document.querySelector<HTMLElement>('.cursor-follower');
+  const enabled = matchMedia(
+    '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
+  );
+
+  if (circle) {
+    let x = 0;
+    let y = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let frame = 0;
+    let visible = false;
+
+    const hide = () => {
+      visible = false;
+      circle.style.opacity = '0';
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    const tick = () => {
+      x += (targetX - x) * 0.18;
+      y += (targetY - y) * 0.18;
+
+      circle.style.transform =
+        `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+
+      frame =
+        Math.abs(targetX - x) + Math.abs(targetY - y) > 0.1
+          ? requestAnimationFrame(tick)
+          : 0;
+    };
+
+    window.addEventListener(
+      'pointermove',
+      (event) => {
+        if (!enabled.matches || event.pointerType !== 'mouse') {
+          hide();
+          return;
+        }
+
+        targetX = event.clientX;
+        targetY = event.clientY;
+
+        if (!visible) {
+          x = targetX;
+          y = targetY;
+          visible = true;
+          circle.style.opacity = '1';
+        }
+
+        if (!frame) {
+          frame = requestAnimationFrame(tick);
+        }
+      },
+      { passive: true }
+    );
+
+    document.documentElement.addEventListener('pointerleave', hide);
+    window.addEventListener('blur', hide);
+    enabled.addEventListener('change', hide);
+  }
+</script>
+
+<style>
+  .cursor-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    overflow: clip;
+    pointer-events: none;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-follower {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border: 1px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+    .cursor-follower {
+      display: none;
+    }
+  }
+</style>

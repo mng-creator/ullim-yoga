@@ -1,0 +1,15 @@
+---
+// TODO: Set the studio's verified official email to enable the mailto contact.
+const inquiryEmail: string = '';
+---
+<p class="floating-meta floating-location" data-floating-ink lang="en">MORAN · SEONGNAM</p>
+{inquiryEmail
+  ? <a class="floating-meta floating-inquiries" data-floating-ink lang="en" href={`mailto:${inquiryEmail}`}>INQUIRIES ↗</a>
+  : <span class="floating-meta floating-inquiries" data-floating-ink lang="en">INQUIRIES ↗</span>}
+<style>
+  .floating-meta { position: fixed; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; margin: 0; color: var(--floating-ink); font: 11px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; letter-spacing: .08em; text-decoration: none; }
+  .floating-location { left: var(--page-gutter); pointer-events: none; }
+  .floating-inquiries { right: var(--page-gutter); }
+  a:hover { text-decoration: underline; }
+  @media (max-width: 700px) { .floating-meta { bottom: max(16px, env(safe-area-inset-bottom)); font-size: 9px; } }
+</style>

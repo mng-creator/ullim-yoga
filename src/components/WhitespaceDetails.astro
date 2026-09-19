@@ -1,0 +1,127 @@
+<div class="micro-details" aria-hidden="true">
+  <div class="detail breathe-note">
+    <img src="/svg/breathe%20first..svg" width="147" height="18" alt="" />
+  </div>
+  <div class="detail movement-doodle">
+    <img src="/svg/Frame%204.svg" width="798" height="919" alt="" />
+  </div>
+  <div class="detail sound-dots">
+    {[0, -2, 3, -4, 3, -2, 0].map((lift, index) => (
+      <span style={`--lift: ${lift}px; --spread: ${index - 3}px`}></span>
+    ))}
+  </div>
+</div>
+
+<script>
+  const details = document.querySelector<HTMLElement>('.micro-details');
+  const about = document.querySelector<HTMLElement>('.about');
+  const yoga = document.querySelector<HTMLElement>('.yoga');
+  const sound = document.querySelector<HTMLElement>('.sound');
+  if (details && about && yoga && sound) {
+    const breathe = details.querySelector<HTMLElement>('.breathe-note')!;
+    const doodle = details.querySelector<HTMLElement>('.movement-doodle')!;
+    const drawing = doodle.querySelector('img')!;
+    const dots = details.querySelector<HTMLElement>('.sound-dots')!;
+    const title = sound.querySelector<HTMLElement>('.graphic-title')!;
+    const content = sound.querySelector<HTMLElement>('.sound-content')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const desktop = matchMedia('(min-width: 701px) and (hover: hover) and (pointer: fine)');
+    let layoutFrame = 0, motionFrame = 0, pointerX = -1000, pointerY = -1000;
+
+    // Decorations occupy existing gaps in a separate layer. No section's grid,
+    // dimensions, margins, or document-flow position is changed.
+    const place = (element: HTMLElement, x: number, y: number) => {
+      const width = element.offsetWidth;
+      element.style.left = `${Math.max(24, Math.min(innerWidth - width - 24, x - width / 2))}px`;
+      element.style.top = `${y + scrollY - element.offsetHeight / 2}px`;
+    };
+    const motion = () => {
+      motionFrame = 0;
+      if (reduced.matches || !desktop.matches) {
+        drawing.style.transform = '';
+        dots.style.setProperty('--proximity', '0');
+        return;
+      }
+      const art = doodle.getBoundingClientRect();
+      const offset = Math.max(-6, Math.min(6, (innerHeight / 2 - (art.top + art.height / 2)) / innerHeight * 12));
+      drawing.style.transform = `translateY(${offset.toFixed(2)}px)`;
+      const box = dots.getBoundingClientRect();
+      const distance = Math.hypot(pointerX - (box.left + box.width / 2), pointerY - (box.top + box.height / 2));
+      dots.style.setProperty('--proximity', String(Math.max(0, 1 - distance / 100)));
+    };
+    const scheduleMotion = () => { if (!motionFrame) motionFrame = requestAnimationFrame(motion); };
+    const layout = () => {
+      layoutFrame = 0;
+      const a = about.getBoundingClientRect(), y = yoga.getBoundingClientRect();
+      const s = sound.getBoundingClientRect(), t = title.getBoundingClientRect(), c = content.getBoundingClientRect();
+      place(breathe, a.left + a.width * .79, a.bottom + (y.top - a.bottom) * .45);
+      place(doodle, y.left + y.width * .2, y.bottom + (s.top - y.bottom) * .5);
+      place(dots, s.left + s.width * .72, t.bottom + (c.top - t.bottom) * .5);
+      details.classList.add('is-positioned');
+      scheduleMotion();
+    };
+    const scheduleLayout = () => { if (!layoutFrame) layoutFrame = requestAnimationFrame(layout); };
+    layout();
+    const resize = new ResizeObserver(scheduleLayout);
+    [document.querySelector('main')!, about, yoga, sound, title, content].forEach(element => resize.observe(element));
+    window.addEventListener('resize', scheduleLayout, { passive: true });
+    document.fonts.ready.then(scheduleLayout);
+    window.addEventListener('scroll', scheduleMotion, { passive: true });
+    window.addEventListener('pointermove', event => {
+      if (event.pointerType !== 'mouse' || !desktop.matches || reduced.matches) return;
+      pointerX = event.clientX; pointerY = event.clientY; scheduleMotion();
+    }, { passive: true });
+    const resetPointer = () => { pointerX = pointerY = -1000; scheduleMotion(); };
+    document.documentElement.addEventListener('pointerleave', resetPointer);
+    window.addEventListener('blur', resetPointer);
+
+    const reveal = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        breathe.classList.add('is-revealed');
+        reveal.disconnect();
+      }
+    }, { threshold: .5 });
+    reveal.observe(breathe);
+    const dotEntrance = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      dotEntrance.disconnect();
+      dots.dataset.entered = 'true';
+      if (desktop.matches || reduced.matches) return;
+      dots.querySelectorAll('span').forEach((dot, index) => {
+        const spread = (index - 3) * 1.5;
+        dot.animate([
+          { transform: 'translateX(0)' },
+          { transform: `translateX(${spread}px)`, offset: .45 },
+          { transform: 'translateX(0)' },
+        ], { duration: 700, easing: 'ease-in-out' });
+      });
+    }, { threshold: .5 });
+    dotEntrance.observe(dots);
+    reduced.addEventListener('change', () => {
+      if (reduced.matches) dots.querySelectorAll('span').forEach(dot => dot.getAnimations().forEach(animation => animation.cancel()));
+      scheduleMotion();
+    });
+    desktop.addEventListener('change', scheduleMotion);
+  }
+</script>
+
+<style>
+  .micro-details { position: absolute; inset: 0 0 auto; height: 0; pointer-events: none; }
+  .detail { position: absolute; visibility: hidden; }
+  .is-positioned .detail { visibility: visible; }
+  .breathe-note { width: 124px; }
+  .breathe-note img { width: 100%; opacity: 0; transform: translateY(10px); transition: opacity 750ms ease, transform 750ms ease; }
+  .breathe-note.is-revealed img { opacity: 1; transform: translateY(0); }
+  .movement-doodle { width: 62px; }
+  .movement-doodle img { width: 100%; transition: transform 180ms ease-out; }
+  .sound-dots { width: 132px; height: 32px; display: flex; align-items: center; justify-content: center; gap: 12px; --proximity: 0; }
+  .sound-dots span { display: block; flex: 0 0 3px; height: 3px; border-radius: 50%; background: var(--color-muted); transform: translate(calc(var(--spread) * var(--proximity)), calc(var(--lift) * var(--proximity))); transition: transform 350ms ease-out; }
+  @media (max-width: 700px) {
+    .breathe-note { width: 100px; }
+    .movement-doodle { width: 46px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .breathe-note img { opacity: 1; transform: none; transition: none; }
+    .movement-doodle img, .sound-dots span { transform: none !important; transition: none; }
+  }
+</style>

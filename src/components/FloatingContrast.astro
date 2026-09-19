@@ -1,0 +1,41 @@
+<script>
+  // Only bottom meta reacts to content; the opaque header stays dark.
+  const controls = [...document.querySelectorAll<HTMLElement>('.floating-meta[data-floating-ink]')];
+  const content = [...document.querySelectorAll<HTMLElement>('.hero-art img, .graphic-title img, .headline, .about-image, .yoga-image, .sound-image, .signature, .photo-group img')];
+  const visible = new Set<HTMLElement>();
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const regions = [...visible].map(element => element.getBoundingClientRect());
+    for (const control of controls) {
+      const box = control.getBoundingClientRect();
+      const active = control.classList.contains('light-on-dark');
+      // Hysteresis avoids repeated toggles at a shared edge.
+      const threshold = active ? .025 : .12;
+      const overlaps = regions.some(region => {
+        const width = Math.max(0, Math.min(box.right, region.right) - Math.max(box.left, region.left));
+        const height = Math.max(0, Math.min(box.bottom, region.bottom) - Math.max(box.top, region.top));
+        return width * height > box.width * box.height * threshold;
+      });
+      control.classList.toggle('light-on-dark', overlaps);
+    }
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const element = entry.target as HTMLElement;
+      if (entry.isIntersecting) visible.add(element); else visible.delete(element);
+    });
+    schedule();
+  }, { rootMargin: '80px' });
+  content.forEach(element => observer.observe(element));
+  // Capture also sees the horizontal photo strip's native scroll events.
+  document.addEventListener('scroll', schedule, { capture: true, passive: true });
+  document.addEventListener('load', schedule, true);
+  window.addEventListener('resize', schedule, { passive: true });
+  document.fonts.ready.then(schedule);
+</script>
+<style is:global>
+  [data-floating-ink] { --floating-ink: var(--color-ink); color: var(--floating-ink); }
+  [data-floating-ink].light-on-dark { --floating-ink: #fff; }
+</style>

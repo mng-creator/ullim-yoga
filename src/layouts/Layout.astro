@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string; }
+const {
+  title = 'Ullim Yoga Studio — Yoga · Sound Bath | 성남 모란',
+  description = '요가와 사운드배스를 통해 지금의 몸을 천천히 알아가는 공간. 성남 모란, 울림요가 스튜디오. Coming soon.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3f0e8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <slot />
+  </body>
+</html>

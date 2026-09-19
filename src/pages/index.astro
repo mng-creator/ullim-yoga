@@ -1,0 +1,19 @@
+---
+import FloatingMeta from '../components/FloatingMeta.astro';
+import FloatingContrast from '../components/FloatingContrast.astro';
+import CursorFollower from '../components/CursorFollower.astro';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeSections from '../components/HomeSections.astro';
+---
+<Layout>
+  <SiteHeader />
+  <CursorFollower />
+  <FloatingMeta />
+  <FloatingContrast />
+  <main id="main">
+    <HomeHero />
+    <HomeSections />
+  </main>
+</Layout>
