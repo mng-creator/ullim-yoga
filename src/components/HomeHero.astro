@@ -13,12 +13,16 @@ const artwork = artworks[heroState];
     <h1>
       <picture>
         <source media="(max-width: 700px)" srcset={artwork.mobile} width={artwork.mobileWidth} height={artwork.mobileHeight} />
-        <img src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
+        <img class="hero-title-art" src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
       </picture>
     </h1>
     <div class="studio-drawing">
-      <img src="/svg/Ullim%20Yoga%20Studio.svg" width="990" height="381" alt="울림요가 스튜디오 건물 일러스트" />
+      <img class="studio-svg" src="/svg/Ullim%20Yoga%20Studio.svg" width="990" height="381" alt="울림요가 스튜디오 건물 일러스트" />
       <button class="sign-light" type="button" aria-label="야간 모드 켜기"></button>
+      <span class="light-hint" aria-hidden="true">
+        <span class="light-hint-text">CLICK</span>
+        <span class="light-hint-arrow">↘</span>
+      </span>
     </div>
   </div>
   <div class="marquee" aria-label="Yoga, Sound Bath, Movement, Tea" lang="en">
@@ -56,6 +60,28 @@ const artwork = artworks[heroState];
     z-index: 2;
   }
 
+  .light-hint {
+    position: absolute;
+    left: 22%;
+    top: -6%;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    color: var(--color-ink);
+    font: 400 9px/1.2 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: .08em;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: .9;
+  }
+
+  .light-hint-arrow {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 1;
+    transform: translateY(4px);
+  }
+
   .sign-light::before {
     content: '';
     position: absolute;
@@ -71,10 +97,10 @@ const artwork = artworks[heroState];
         transparent 78%
       );
     filter: blur(4px);
-    opacity: .48;
-    transform: scale(.88);
+    opacity: .62;
+    transform: scale(.92);
     pointer-events: none;
-    animation: sign-breathe 2.8s ease-in-out infinite;
+    animation: sign-breathe 1.2s ease-in-out infinite;
   }
 
   :global(html[data-theme='night']) .sign-light::before {
@@ -84,16 +110,16 @@ const artwork = artworks[heroState];
 
   @keyframes sign-breathe {
     0%, 100% {
-      opacity: .38;
-      transform: scale(.86);
+      opacity: .42;
+      transform: scale(.88);
     }
     50% {
-      opacity: .82;
-      transform: scale(1.08);
+      opacity: 1;
+      transform: scale(1.28);
     }
   }
 
-  .marquee { overflow: hidden; width: 100%; flex-shrink: 0; padding-block: 14px; border-block: 1px solid currentColor; color: var(--color-muted); }
+  .marquee { overflow: hidden; width: 100%; flex-shrink: 0; padding-block: 14px; border-block: 1px solid currentColor; color: var(--color-ink); }
   .marquee-track { display: flex; width: max-content; --item-gap: clamp(56px, 6vw, 100px); gap: var(--item-gap); animation: drift 180s linear infinite; }
   /* Both internal and inter-group spacing use the same gap; include half
      the track gap in the translation to advance exactly one group. */
@@ -111,11 +137,51 @@ const artwork = artworks[heroState];
 
 <script>
   const signLight = document.querySelector<HTMLButtonElement>('.sign-light');
+  const lightHint = document.querySelector<HTMLElement>('.light-hint-text');
+  const heroTitle = document.querySelector<HTMLImageElement>('.hero-title-art');
+  const studioSvg = document.querySelector<HTMLImageElement>('.studio-svg');
+  const heroSource = document.querySelector<HTMLSourceElement>('.hero-art picture source');
   const root = document.documentElement;
+
   const syncSign = () => {
     const night = root.dataset.theme === 'night';
-    signLight?.setAttribute('aria-label', night ? '주간 모드로 돌아가기' : '야간 모드 켜기');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', night ? '#211d1b' : '#f3f0e8');
+    document.querySelectorAll<HTMLImageElement>('img[data-day-src][data-night-src]').forEach((img) => {
+      const src = night ? img.dataset.nightSrc : img.dataset.daySrc;
+      if (src) img.src = src;
+    });
+
+    if (studioSvg) {
+      studioSvg.src = night
+        ? '/svg/Ullim%20Yoga%20Studio-night.svg'
+        : '/svg/Ullim%20Yoga%20Studio.svg';
+    }
+
+
+    signLight?.setAttribute(
+      'aria-label',
+      night ? '조명을 끄고 주간 모드로 돌아가기' : '조명을 켜고 야간 모드 보기'
+    );
+
+    if (lightHint) {
+      lightHint.textContent = window.innerWidth <= 700 ? 'TAP' : 'CLICK';
+    }
+
+    if (heroTitle) {
+      heroTitle.src = night
+        ? '/svg/coming-soon-hor-night.svg'
+        : '/svg/coming-soon-hor.svg';
+    }
+
+    if (heroSource) {
+      heroSource.srcset = night
+        ? '/svg/coming-soon-ver-night.svg'
+        : '/svg/coming-soon-ver.svg';
+    }
+
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      night ? '#211F1E' : '#FAF6E6'
+    );
   };
   syncSign();
   signLight?.addEventListener('click', () => {

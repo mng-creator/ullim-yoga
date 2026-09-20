@@ -3,7 +3,7 @@ import PhotoDrift from './PhotoDrift.astro';
 ---
 <div class="editorial page-shell">
   <section id="about" class="about" aria-labelledby="about-title">
-    <h2 id="about-title" class="graphic-title"><img class="section-title-svg" style="--intrinsic-width: 53" src="/svg/About.svg" width="53" height="12" alt="ABOUT" /></h2>
+    <h2 id="about-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/About.svg" data-night-src="/svg/About-night.svg" style="--intrinsic-width: 53" src="/svg/About.svg" width="53" height="12" alt="ABOUT" /></h2>
     <div class="about-copy">
       <h3 class="headline">지금의 몸을 이해하는 것에서<br />움직임을 시작합니다.</h3>
       <div class="body-copy">
@@ -12,12 +12,16 @@ import PhotoDrift from './PhotoDrift.astro';
         <p>각자의 몸과 속도에 맞는 경험을 쌓아 수련실 밖의 일상에서도 스스로의 몸을 더 잘 이해할 수 있기를 바랍니다.</p>
       </div>
     </div>
-    <img class="about-image" src="/images/generated/yoga_ready.png" width="2272" height="2768" alt="요가 매트 위에서 책상다리로 앉아 손을 편안하게 내려놓은 수련자" loading="lazy" />
+    <div class="about-image parallax-frame">
+      <img class="parallax-media" src="/images/generated/yoga_ready.png" width="2272" height="2768" alt="요가 매트 위에서 책상다리로 앉아 손을 편안하게 내려놓은 수련자" loading="lazy" />
+    </div>
   </section>
 
   <section id="classes" class="yoga" aria-labelledby="yoga-title">
-    <h2 id="yoga-title" class="graphic-title"><img class="section-title-svg" style="--intrinsic-width: 39" src="/svg/Yoga.svg" width="39" height="17" alt="YOGA" /></h2>
-    <img class="yoga-image" src="/images/generated/yoga_1.png" width="3344" height="1882" alt="햇빛이 드는 공간에서 두 손으로 바닥을 짚고 가슴을 열어 올리는 요가 수련자" loading="lazy" />
+    <h2 id="yoga-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/Yoga.svg" data-night-src="/svg/Yoga-night.svg" style="--intrinsic-width: 39" src="/svg/Yoga.svg" width="39" height="17" alt="YOGA" /></h2>
+    <div class="yoga-image parallax-frame">
+      <img class="parallax-media" src="/images/generated/yoga_1.png" width="3344" height="1882" alt="햇빛이 드는 공간에서 두 손으로 바닥을 짚고 가슴을 열어 올리는 요가 수련자" loading="lazy" />
+    </div>
     <div class="yoga-content">
       <h3 class="headline yoga-intro">몸을 알아가는 움직임.</h3>
       <div class="yoga-copy body-copy">
@@ -28,14 +32,16 @@ import PhotoDrift from './PhotoDrift.astro';
   </section>
 
   <section class="sound" aria-labelledby="sound-title">
-    <h2 id="sound-title" class="graphic-title"><img class="section-title-svg" style="--intrinsic-width: 103" src="/svg/Sound%20Bath.svg" width="103" height="14" alt="SOUND BATH" /></h2>
+    <h2 id="sound-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/Sound%20Bath.svg" data-night-src="/svg/Sound%20Bath-night.svg" style="--intrinsic-width: 103" src="/svg/Sound%20Bath.svg" width="103" height="14" alt="SOUND BATH" /></h2>
     <div class="sound-content">
       <div class="sound-copy">
         <h3 class="headline">소리와 진동에 머무는 시간.</h3>
         <p>사운드배스는 편안하게 누워 싱잉볼의 소리와 진동에 천천히 귀 기울이는 시간입니다. 여러 겹으로 이어지고 사라지는 소리를 따라가며 호흡과 몸의 감각을 자연스럽게 알아차립니다.</p>
         <p>계속 무언가를 해야 하는 일상에서 잠시 벗어나, 아무것도 하지 않아도 되는 휴식의 시간을 만듭니다.</p>
       </div>
-      <img class="sound-image" src="/images/generated/singing_bowl.png" width="2236" height="2814" alt="무릎 위에 놓인 황동 싱잉볼과 말렛을 쥔 손" loading="lazy" />
+      <div class="sound-image parallax-frame">
+        <img class="parallax-media" src="/images/generated/singing_bowl.png" width="2236" height="2814" alt="무릎 위에 놓인 황동 싱잉볼과 말렛을 쥔 손" loading="lazy" />
+      </div>
     </div>
   </section>
 
@@ -50,7 +56,7 @@ import PhotoDrift from './PhotoDrift.astro';
     <section id="visit" class="visit" aria-label="네이버 지도로 찾아오시는 길">
       <div class="qr-artwork">
         <img class="map-qr" data-keep-svg-color src="/svg/qr.svg" width="508" height="777" alt="울림요가 네이버 지도 QR 안내" loading="lazy" />
-        <img class="signature" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
+        <img class="signature theme-svg" data-day-src="/svg/illustration-signature.svg" data-night-src="/svg/illustration-signature-night.svg" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
       </div>
     </section>
   </div>
@@ -70,6 +76,20 @@ import PhotoDrift from './PhotoDrift.astro';
   section p:lang(ko) { letter-spacing: -.02em; }
   section p:last-child { margin-bottom: 0; }
   .body-copy { max-width: 460px; }
+
+  /* Image parallax */
+  .parallax-frame {
+    overflow: hidden;
+  }
+
+  .parallax-frame .parallax-media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.12) translate3d(0, var(--parallax-y, 0px), 0);
+    will-change: transform;
+  }
 
   .about-copy { grid-column: 6 / 12; grid-row: 2; padding-top: 28px; }
   .about-copy .body-copy { max-width: 420px; }
@@ -122,12 +142,27 @@ import PhotoDrift from './PhotoDrift.astro';
   }
   @media (max-width: 700px) {
     section { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px 12px; }
+
+    .breath-break {
+      min-height: 82svh;
+    }
+
+    .breath-break-inner {
+      font-size: clamp(64px, 21vw, 96px);
+      line-height: .84;
+    }
     section p { font-size: 15px; line-height: 1.9; }
     .headline { font-size: clamp(22px, 5.7vw, 28px); margin-bottom: 28px; }
 
     .about-copy { grid-column: 1 / -1; grid-row: 2; padding-top: 0; }
     .about-image { grid-column: 3 / -1; grid-row: 3; margin: 16px 0 0; }
     .yoga { row-gap: 28px; --yoga-start: 1; }
+
+    /* Mobile — Yoga image reaches the right edge of the viewport */
+    .yoga-image {
+      width: calc(100% + var(--page-gutter));
+      max-width: none;
+    }
 
     .yoga-content { padding-top: 8px; }
     .yoga-intro { margin-bottom: 28px; font-size: 22px; }
@@ -136,7 +171,22 @@ import PhotoDrift from './PhotoDrift.astro';
     .sound-content { grid-template-columns: minmax(0, 1fr); gap: 40px; }
     .sound-copy .headline { font-size: 22px; }
     .sound-image { justify-self: end; }
-    .graphic-title { --title-unit: min(3.3px, (100vw - 2 * var(--page-gutter)) / 103); }
+    /* Mobile section titles */
+    .graphic-title {
+      --title-unit: min(4px, (100vw - 2 * var(--page-gutter)) / 103);
+      width: 100%;
+      max-width: 100%;
+      overflow: visible;
+      transform: none;
+      text-align: left;
+    }
+
+    .graphic-title .section-title-svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+    }
     .closing-note { grid-template-columns: minmax(0, 1fr); gap: 80px; padding-block: 24px; }
     .message, .visit { grid-column: 1; margin: 0; }
     .message p, .message h2 { font-size: 15px; }
@@ -144,3 +194,48 @@ import PhotoDrift from './PhotoDrift.astro';
 
   }
 </style>
+
+<script>
+  const parallaxFrames = Array.from(
+    document.querySelectorAll<HTMLElement>('.parallax-frame')
+  );
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let ticking = false;
+
+  const updateParallax = () => {
+    const viewportHeight = window.innerHeight;
+    const strength = window.innerWidth <= 700 ? 30 : 50;
+
+    parallaxFrames.forEach((frame) => {
+      const rect = frame.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const progress =
+        (center - viewportHeight / 2) /
+        ((viewportHeight + rect.height) / 2);
+
+      const normalized = Math.max(-1, Math.min(1, progress));
+      const offset = normalized * strength;
+
+      frame.style.setProperty(
+        '--parallax-y',
+        reduceMotion.matches ? '0px' : `${offset}px`
+      );
+    });
+
+    ticking = false;
+  };
+
+  const requestParallax = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateParallax);
+  };
+
+  window.addEventListener('scroll', requestParallax, { passive: true });
+  window.addEventListener('resize', requestParallax, { passive: true });
+  reduceMotion.addEventListener?.('change', requestParallax);
+
+  requestParallax();
+</script>
+

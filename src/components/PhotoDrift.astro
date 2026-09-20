@@ -79,7 +79,7 @@ const photos = [
       if (visible && !reduced.matches) frame = requestAnimationFrame(tick);
     };
     const start = () => { if (!frame && visible && !reduced.matches) { lastTime = 0; frame = requestAnimationFrame(tick); } };
-    const pause = () => { resumeAt = performance.now() + 8000; velocity = 0; };
+    const pause = () => { resumeAt = performance.now() + 3000; velocity = 0; };
     new ResizeObserver(() => {
       const next = group.getBoundingClientRect().width;
       const progress = period ? (strip.scrollLeft % period) / period : 0;
@@ -113,7 +113,7 @@ const photos = [
       if (!active) return;
       if (!mouseDrag || performance.now() - lastMove > 100 || reduced.matches) velocity = 0;
       active = false; mouseDrag = false;
-      resumeAt = performance.now() + 8000;
+      resumeAt = performance.now() + 3000;
       strip.classList.remove('is-dragging'); start();
     };
     strip.addEventListener('pointerup', release);

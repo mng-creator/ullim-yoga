@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
-  --color-paper: #f3f0e8;
-  --color-ink: #161312;
-  --color-burgundy: #702c40;
+  --color-paper: #FAF6E6;
+  --color-ink: #632F3E;
+  --color-burgundy: #632F3E;
   --color-muted: #65665c;
   --color-line: #c9c9bb;
   --font-sans: Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
@@ -21,23 +21,28 @@ a { text-underline-offset: 4px; }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
-::selection { background: var(--color-burgundy); color: var(--color-paper); }
+::selection { background: #F6C9D8; color: #632F3E; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 12px 18px; background: var(--color-paper); transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
 
 html[data-theme='night'] {
   color-scheme: dark;
-  --color-paper: #211d1b;
-  --color-ink: #f3f0e8;
-  --color-muted: #b8b7aa;
-  --color-line: #716c62;
+  --color-paper: #211F1E;
+  --color-ink: #FAF6E6;
+  --color-muted: #BDB9AE;
+  --color-line: #68635D;
+  --color-burgundy: #632F3E;
 }
+
 html[data-theme='night'] .closing-info {
-  --strip-sage: #353b32;
-  --strip-pink: #f7ecee;
+  --strip-sage: #DBF2AC;
+  --strip-pink: #FFEEF5;
 }
-html[data-theme='night'] .message-strip:last-child { color: #e5c4cd; }
+
+html[data-theme='night'] .message-strip:last-child {
+  color: #632F3E;
+}
 /* Original black SVG artwork remains intact on a warm paper backing. */
 html[data-theme='night'] img[src$='.svg'] {
   background-color: transparent;
@@ -45,8 +50,12 @@ html[data-theme='night'] img[src$='.svg'] {
 
 /* Transparent monochrome brand SVGs become light artwork on the night background.
    Raster photography remains completely untouched. */
-html[data-theme='night'] img[src$='.svg']:not([data-keep-svg-color]) {
+html[data-theme='night'] img[src$='.svg']:not([data-keep-svg-color]):not(.hero-title-art):not(.studio-svg):not(.section-title-svg):not(.signature):not(.theme-logo) {
   filter: invert(1) brightness(1.08) sepia(.06);
+}
+
+html[data-theme='night'] .hero-title-art {
+  filter: none;
 }
 body, .site-header, #site-menu, .menu-toggle, .mobile-meta-surface,
 .floating-meta, .skip-link, .marquee, .message-strip, h2, p, a, img[src$='.svg'] {
@@ -57,4 +66,19 @@ body, .site-header, #site-menu, .menu-toggle, .mobile-meta-surface,
   .floating-meta, .skip-link, .marquee, .message-strip, h2, p, a, img[src$='.svg'] {
     transition: none;
   }
+}
+
+/* Night — text selection */
+html[data-theme='night'] ::selection {
+  background: #F6C9D8;
+  color: #211F1E;
+}
+
+
+/* Exact-color theme SVGs */
+html[data-theme='night'] .studio-svg,
+html[data-theme='night'] .section-title-svg,
+html[data-theme='night'] .signature,
+html[data-theme='night'] .theme-logo {
+  filter: none;
 }

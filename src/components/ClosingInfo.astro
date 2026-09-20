@@ -20,6 +20,46 @@ const message = messages[closingState];
     <div class="closing-details">
       {message.details.map(detail => <p class="message-strip">{detail}</p>)}
     </div>
+
+    <div class="closing-location" aria-label="울림요가 위치">
+      <address>경기도 성남시 중원구 둔촌대로113번길 8</address>
+    </div>
+
+    {closingState === 'coming-soon' && (
+      <div class="closing-reservation">
+        <a
+          class="closing-reservation-trigger closing-coming-instagram"
+          href="https://www.instagram.com/ullim.yoga/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >@ullim.yoga ↗</a>
+      </div>
+    )}
+
+    {closingState === 'soft-open' && (
+      <div class="closing-reservation">
+        <button
+          class="closing-reservation-trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="closing-reservation-panel"
+        >
+          상담 · 예약 문의 ↗
+        </button>
+
+        
+
+        <div id="closing-reservation-panel" class="closing-reservation-panel" hidden>
+          <p><strong>예약 페이지를 준비하고 있어요.</strong></p>
+          <p>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</p>
+          <a
+            href="https://www.instagram.com/ullim.yoga/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >@ullim.yoga ↗</a>
+        </div>
+      </div>
+    )}
   </div>
 </section>
 <style>
@@ -82,6 +122,88 @@ const message = messages[closingState];
     color: var(--color-burgundy);
     transform: rotate(.7deg);
   }
+  .closing-location {
+    margin: clamp(38px, 4vw, 52px) auto 0;
+    text-align: center;
+    color: var(--color-ink);
+  }
+
+  .closing-location-label {
+    margin: 0 0 14px;
+    font-size: 10px;
+    line-height: 1.5;
+    letter-spacing: .14em;
+  }
+
+  .closing-location address {
+    margin: 0;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: -.025em;
+    word-break: keep-all;
+  }
+
+  .closing-location a {
+    display: inline-block;
+    margin-top: 10px;
+    color: inherit;
+    font-size: 12px;
+    line-height: 1.6;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .closing-reservation {
+    width: min(64vw, 880px);
+    margin: 18px auto 0;
+    text-align: center;
+  }
+
+  .closing-reservation-trigger {
+    padding: 3px 0;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    text-decoration: none;
+    background: transparent;
+    color: var(--color-ink);
+    font: 400 13px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: -.02em;
+    cursor: pointer;
+  }
+
+
+  .closing-reservation-panel {
+    width: min(420px, 100%);
+    margin: 16px auto 0;
+    color: var(--color-ink);
+    text-align: center;
+  }
+
+  .closing-reservation-panel[hidden] {
+    display: none;
+  }
+
+  .closing-reservation-panel p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.65;
+    letter-spacing: -.02em;
+  }
+
+  .closing-reservation-panel strong {
+    font-weight: 500;
+  }
+
+  .closing-reservation-panel a {
+    display: inline-block;
+    margin-top: 2px;
+    color: inherit;
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   @media (max-width: 700px) {
     .closing-info { padding-block: 72px 128px; }
     h2 { margin-bottom: 52px; font-size: 30px; }
@@ -91,3 +213,18 @@ const message = messages[closingState];
     .message-strip:last-child { width: 86%; margin-top: -7px; padding-inline: 16px; }
   }
 </style>
+
+<script>
+  const closingTrigger =
+    document.querySelector<HTMLButtonElement>('.closing-reservation-trigger');
+  const closingPanel =
+    document.querySelector<HTMLElement>('#closing-reservation-panel');
+
+  closingTrigger?.addEventListener('click', () => {
+    if (!closingPanel) return;
+
+    const willOpen = closingPanel.hidden;
+    closingPanel.hidden = !willOpen;
+    closingTrigger.setAttribute('aria-expanded', String(willOpen));
+  });
+</script>

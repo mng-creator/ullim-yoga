@@ -1,20 +1,200 @@
 ---
-// TODO: Set the studio's verified official email to enable the mailto contact.
-const inquiryEmail: string = '';
+const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
 ---
+
 <div class="mobile-meta-surface" aria-hidden="true"></div>
-<p class="floating-meta floating-location" data-floating-ink lang="en">MORAN · SEONGNAM</p>
-{inquiryEmail
-  ? <a class="floating-meta floating-inquiries" data-floating-ink lang="en" href={`mailto:${inquiryEmail}`}>INQUIRIES ↗</a>
-  : <span class="floating-meta floating-inquiries" data-floating-ink lang="en">INQUIRIES ↗</span>}
+
+<p class="floating-meta floating-location" data-floating-ink lang="en">
+  MORAN · SEONGNAM
+</p>
+
+<div class="reservation-wrap">
+  <div class="reservation-panel" id="reservation-panel" hidden>
+    <strong>예약 페이지를 준비하고 있어요.</strong>
+    <span>조금만 기다려주세요.</span>
+    <span>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</span>
+    <a href={instagramUrl} target="_blank" rel="noopener noreferrer">@ullim.yoga ↗</a>
+  </div>
+
+  <button
+    class="floating-meta floating-reservation"
+    data-floating-ink
+    type="button"
+    aria-expanded="false"
+    aria-controls="reservation-panel"
+  >
+    RESERVATION ↗
+  </button>
+</div>
+
 <style>
-  .floating-meta { position: fixed; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 30; margin: 0; color: var(--floating-ink); font: 11px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; letter-spacing: .08em; text-decoration: none; }
-  .floating-location { left: var(--page-gutter); pointer-events: none; }
-  .floating-inquiries { right: var(--page-gutter); }
-  a:hover { text-decoration: underline; }
-  .mobile-meta-surface { display: none; }
+  .floating-meta {
+    position: fixed;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    z-index: 30;
+    margin: 0;
+    color: var(--floating-ink);
+    font: 11px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: .08em;
+    text-decoration: none;
+  }
+
+  .floating-location {
+    left: var(--page-gutter);
+    pointer-events: none;
+  }
+
+  .floating-center {
+    position: fixed;
+    left: 50%;
+    bottom: max(22px, env(safe-area-inset-bottom));
+    z-index: 30;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    color: var(--floating-ink);
+    font: 10px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: .02em;
+  }
+
+  .floating-center a,
+  .reservation-panel a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .reservation-wrap {
+    position: fixed;
+    right: var(--page-gutter);
+    bottom: max(24px, env(safe-area-inset-bottom));
+    z-index: 31;
+  }
+
+  .floating-reservation {
+    position: static;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    font: 10px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: .08em;
+  }
+
+  .reservation-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 16px);
+    width: min(320px, calc(100vw - 32px));
+    padding: 18px 20px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border: 1px solid currentColor;
+    font: 12px/1.75 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    letter-spacing: -.01em;
+  }
+
+  .reservation-panel[hidden] {
+    display: none;
+  }
+
+  .reservation-panel strong,
+  .reservation-panel span,
+  .reservation-panel a {
+    display: block;
+  }
+
+  .reservation-panel strong {
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .reservation-panel a {
+    margin-top: 10px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  a:hover,
+  button:hover {
+    text-decoration: underline;
+  }
+
+  .mobile-meta-surface {
+    display: none;
+  }
+
   @media (max-width: 700px) {
-    .mobile-meta-surface { display: block; position: fixed; inset: auto 0 0; height: calc(max(16px, env(safe-area-inset-bottom)) + 24px); background: var(--color-paper); z-index: 29; pointer-events: none; }
-    .floating-meta { bottom: max(16px, env(safe-area-inset-bottom)); font-size: 9px; color: var(--color-ink); }
+    .mobile-meta-surface {
+      display: block;
+      position: fixed;
+      inset: auto 0 0;
+      height: calc(max(16px, env(safe-area-inset-bottom)) + 56px);
+      background: var(--color-paper);
+      z-index: 29;
+      pointer-events: none;
+    }
+
+    .floating-meta {
+      bottom: max(16px, env(safe-area-inset-bottom));
+      font-size: 9px;
+      color: var(--color-ink);
+    }
+
+    .floating-location {
+      display: none;
+    }
+
+    .floating-center {
+      left: var(--page-gutter);
+      bottom: max(14px, env(safe-area-inset-bottom));
+      transform: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      max-width: 65vw;
+      white-space: normal;
+      color: var(--color-ink);
+      font-size: 8px;
+      line-height: 1.55;
+    }
+
+    .reservation-wrap {
+      right: var(--page-gutter);
+      bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .floating-reservation {
+      font-size: 9px;
+    }
+
+    .reservation-panel {
+      bottom: calc(100% + 14px);
+    }
   }
 </style>
+
+<script>
+  const reservationButton = document.querySelector<HTMLButtonElement>('.floating-reservation');
+  const reservationPanel = document.querySelector<HTMLElement>('#reservation-panel');
+
+  reservationButton?.addEventListener('click', () => {
+    if (!reservationPanel) return;
+
+    const willOpen = reservationPanel.hidden;
+    reservationPanel.hidden = !willOpen;
+    reservationButton.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!reservationPanel || !reservationButton || reservationPanel.hidden) return;
+
+    const target = event.target as Node;
+    if (reservationPanel.contains(target) || reservationButton.contains(target)) return;
+
+    reservationPanel.hidden = true;
+    reservationButton.setAttribute('aria-expanded', 'false');
+  });
+</script>
