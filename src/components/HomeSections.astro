@@ -66,6 +66,10 @@ import PhotoDrift from './PhotoDrift.astro';
     <section id="visit" class="visit" aria-label="네이버 지도로 찾아오시는 길">
       <div class="qr-artwork">
         <img class="map-qr" data-keep-svg-color src="/svg/qr.svg" width="508" height="777" alt="울림요가 네이버 지도 QR 안내" loading="lazy" />
+        <p class="qr-waiting" aria-hidden="true">
+  QR IS TAKING<br />
+  ITS TIME...
+</p>
         <img class="signature theme-svg" data-day-src="/svg/illustration-signature.svg" data-night-src="/svg/illustration-signature-night.svg" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
       </div>
     </section>
@@ -131,6 +135,21 @@ import PhotoDrift from './PhotoDrift.astro';
      shift its center. Its left edge clears the code and its quiet zone. */
   .qr-artwork { position: relative; width: min(80%, 360px); margin-inline: auto; }
   .qr-artwork .map-qr { width: 100%; }
+.qr-waiting {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 6px;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-align: center;
+  white-space: nowrap;
+  color: #632F3E;
+  opacity: 0.7;
+  pointer-events: none;
+}
   .qr-artwork .signature { position: absolute; width: 32%; right: -12%; bottom: -3%; }
 
   @media (min-width: 1600px) {
