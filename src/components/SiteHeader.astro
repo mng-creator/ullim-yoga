@@ -8,6 +8,7 @@
     <a href="#about" lang="en">ABOUT</a>
     <a href="#classes" lang="en">CLASSES</a>
     <a href="#visit" lang="en">VISIT</a>
+    <a href="mailto:ullimyoga@naver.com" lang="en">CONTACT</a>
 </nav>
 
 <script>
@@ -15,6 +16,9 @@
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu.hidePopover();
+
+      if (!link.hash) return;
+
       const target = document.querySelector<HTMLElement>(link.hash);
       target?.setAttribute('tabindex', '-1');
       target?.focus({ preventScroll: true });

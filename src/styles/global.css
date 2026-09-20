@@ -79,6 +79,7 @@ html[data-theme='night'] ::selection {
 html[data-theme='night'] .studio-svg,
 html[data-theme='night'] .section-title-svg,
 html[data-theme='night'] .signature,
-html[data-theme='night'] .theme-logo {
-  filter: none;
+html[data-theme='night'] .theme-logo,
+html[data-theme='night'] .letter-title-svg {
+  filter: brightness(0) saturate(100%) invert(92%) sepia(8%) saturate(500%) hue-rotate(20deg) brightness(104%) contrast(96%) !important;
 }

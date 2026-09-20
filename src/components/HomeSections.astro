@@ -47,7 +47,17 @@ import PhotoDrift from './PhotoDrift.astro';
 
   <div class="closing-note">
     <section class="message" aria-labelledby="letter-title">
-      <h2 id="letter-title" lang="en">Dear you,</h2>
+      <h2 id="letter-title" lang="en">
+  <img
+    class="letter-title-svg"
+    data-day-src="/svg/dear-you.svg"
+    data-night-src="/svg/dear-you-night.svg"
+    src="/svg/dear-you.svg"
+    width="247"
+    height="56"
+    alt="Dear you,"
+  />
+</h2>
       <p>하루 종일 해야 할 것들을 따라가다 보면 내 몸이 어떤지 들여다보는 일은 자꾸 뒤로 미뤄집니다.</p>
       <p>울림요가에 있는 동안만큼은 조금 천천히 움직여도, 잠시 멈춰 있어도 좋았으면 합니다. 잘 해내는 것보다 오늘의 몸을 알아차리고, 나에게 필요한 움직임과 쉼을 찾아가는 시간.</p>
       <p>수업이 끝난 뒤 다시 일상으로 돌아갈 때 몸과 마음에 작은 여유가 남아 있기를 바랍니다.</p>
@@ -196,6 +206,26 @@ import PhotoDrift from './PhotoDrift.astro';
 </style>
 
 <script>
+  const themeRoot = document.documentElement;
+
+  const syncSectionTheme = () => {
+    const night = themeRoot.dataset.theme === 'night';
+
+    document.querySelectorAll<HTMLImageElement>(
+      'img[data-day-src][data-night-src]'
+    ).forEach((img) => {
+      const src = night ? img.dataset.nightSrc : img.dataset.daySrc;
+      if (src) img.setAttribute('src', src);
+    });
+  };
+
+  syncSectionTheme();
+
+  new MutationObserver(syncSectionTheme).observe(themeRoot, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+
   const parallaxFrames = Array.from(
     document.querySelectorAll<HTMLElement>('.parallax-frame')
   );
