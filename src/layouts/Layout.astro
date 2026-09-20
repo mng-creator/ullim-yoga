@@ -4,16 +4,43 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 interface Props { title?: string; description?: string; }
 const {
-  title = '울림요가 | Ullim Yoga Studio',
-  description = '움직임과 회복을 위한 소규모 웰니스 스튜디오 · 성남 모란',
+  title = '울림요가 | 성남 모란 요가 · 사운드배스',
+  description = '성남 모란의 작은 요가 스튜디오, 울림요가. 현재의 몸을 이해하고 나에게 필요한 움직임과 쉼을 찾아가는 요가와 사운드배스 클래스를 운영합니다.',
 } = Astro.props;
-const publicOrigin = 'https://ullim-yoga.vercel.app';
+const publicOrigin = 'https://ullimyoga.com';
 const canonicalURL = new URL(Astro.url.pathname, publicOrigin).href;
 // Dedicated studio illustration preview on warm ivory.
 // Enable image metadata only when the real asset exists, never a broken URL.
 const ogImagePath = '/images/og/ullim-yoga-og.png';
 const hasOgImage = existsSync(resolve('public', ogImagePath.slice(1)));
 const ogImageURL = new URL(ogImagePath, publicOrigin).href;
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'SportsActivityLocation'],
+  name: '울림요가',
+  alternateName: 'Ullim Yoga',
+  description,
+  url: 'https://ullimyoga.com',
+  image: hasOgImage ? ogImageURL : undefined,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '둔촌대로113번길 8',
+    addressLocality: '성남시 중원구',
+    addressRegion: '경기도',
+    addressCountry: 'KR',
+  },
+  sameAs: [
+    'https://www.instagram.com/ullim.yoga/',
+  ],
+  knowsAbout: [
+    'Yoga',
+    'Sound Bath',
+    'Movement',
+    'Recovery',
+  ],
+};
+
 ---
 <!doctype html>
 <html lang="ko">
@@ -21,6 +48,7 @@ const ogImageURL = new URL(ogImagePath, publicOrigin).href;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
     <meta name="theme-color" content="#f3f0e8" />
     <script is:inline>
       // Restore only an explicit choice from this tab, before the first paint.
