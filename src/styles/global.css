@@ -4,7 +4,6 @@
   --color-ink: #632F3E;
   --color-burgundy: #632F3E;
   --color-muted: #65665c;
-  --color-line: #c9c9bb;
   --font-sans: Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   --page-gutter: clamp(48px, 4vw, 72px);
   --section-space: clamp(160px, 14vw, 240px);
@@ -31,8 +30,6 @@ html[data-theme='night'] {
   --color-paper: #211F1E;
   --color-ink: #FAF6E6;
   --color-muted: #BDB9AE;
-  --color-line: #68635D;
-  --color-burgundy: #632F3E;
 }
 
 html[data-theme='night'] .closing-info {
@@ -40,9 +37,6 @@ html[data-theme='night'] .closing-info {
   --strip-pink: #FFEEF5;
 }
 
-html[data-theme='night'] .message-strip:last-child {
-  color: #632F3E;
-}
 /* Original black SVG artwork remains intact on a warm paper backing. */
 html[data-theme='night'] img[src$='.svg'] {
   background-color: transparent;
@@ -50,13 +44,10 @@ html[data-theme='night'] img[src$='.svg'] {
 
 /* Transparent monochrome brand SVGs become light artwork on the night background.
    Raster photography remains completely untouched. */
-html[data-theme='night'] img[src$='.svg']:not([data-keep-svg-color]):not(.hero-title-art):not(.studio-svg):not(.section-title-svg):not(.signature):not(.theme-logo) {
+html[data-theme='night'] img[src$='.svg']:not([data-keep-svg-color]):not(.studio-svg):not(.section-title-svg):not(.signature):not(.theme-logo):not(.letter-title-svg) {
   filter: invert(1) brightness(1.08) sepia(.06);
 }
 
-html[data-theme='night'] .hero-title-art {
-  filter: none;
-}
 body, .site-header, #site-menu, .menu-toggle, .mobile-meta-surface,
 .floating-meta, .skip-link, .marquee, .message-strip, h2, p, a, img[src$='.svg'] {
   transition: background-color 500ms ease, color 500ms ease, border-color 500ms ease;

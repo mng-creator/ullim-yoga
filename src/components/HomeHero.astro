@@ -1,23 +1,17 @@
 ---
-// Public state: change only this value when Soft Open is approved.
-const heroState: 'coming-soon' | 'soft-open' = 'coming-soon';
-const artworks = {
-  'coming-soon': { label: 'Coming soon', desktop: '/svg/coming-soon-hor.svg', mobile: '/svg/coming-soon-ver.svg', width: 600, height: 118, mobileWidth: 420, mobileHeight: 190 },
-  // These filenames match the supplied assets, including case on Vercel.
-  'soft-open': { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile: '/svg/Soft-Open-ver.svg', width: 500, height: 113, mobileWidth: 310, mobileHeight: 218 },
-};
-const artwork = artworks[heroState];
+// Filenames match the supplied Soft Open assets, including case.
+const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile: '/svg/Soft-Open-ver.svg', width: 500, height: 113, mobileWidth: 310, mobileHeight: 218 };
 ---
 <section class="hero" aria-label={artwork.label}>
   <div class="hero-art page-shell">
     <h1>
       <picture>
         <source media="(max-width: 700px)" srcset={artwork.mobile} width={artwork.mobileWidth} height={artwork.mobileHeight} />
-        <img class="hero-title-art" src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
+        <img class="hero-title-art" data-keep-svg-color src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
       </picture>
     </h1>
     <div class="studio-drawing">
-      <img class="studio-svg" src="/svg/Ullim%20Yoga%20Studio.svg" width="990" height="381" alt="울림요가 스튜디오 건물 일러스트" />
+      <img class="studio-svg" data-day-src="/svg/Ullim%20Yoga%20Studio.svg" data-night-src="/svg/Ullim%20Yoga%20Studio-night.svg" src="/svg/Ullim%20Yoga%20Studio.svg" width="990" height="381" alt="울림요가 스튜디오 건물 일러스트" />
       <button class="sign-light" type="button" aria-label="야간 모드 켜기"></button>
       <span class="light-hint" aria-hidden="true">
         <span class="light-hint-text">CLICK</span>
@@ -25,18 +19,24 @@ const artwork = artworks[heroState];
       </span>
     </div>
   </div>
-  <div class="marquee" aria-label="Yoga, Sound Bath, Movement, Tea" lang="en">
-    <div class="marquee-track" aria-hidden="true">
-      {[0, 1].map(() => <div class="marquee-group">{Array.from({ length: 4 }, () => ['YOGA', 'SOUND BATH', 'MOVEMENT', 'TEA']).flat().map((item) => <span>{item}</span>)}</div>)}
-    </div>
+<div class="marquee" aria-label="Yoga, Breathe, Sound Bath, Move Gently, Tea, Take Your Time" lang="en">
+  <div class="marquee-track" aria-hidden="true">
+    {[0, 1].map(() => (
+      <div class="marquee-group">
+        {Array.from(
+          { length: 3 },
+          () => ['YOGA', 'BREATHE', 'SOUND BATH', 'MOVE GENTLY', 'TEA', 'TAKE YOUR TIME']
+        ).flat().map((item) => <span>{item}</span>)}
+      </div>
+    ))}
   </div>
-</section>
+</div></section>
 
 <style>
   .hero { display: flex; flex-direction: column; padding-top: 76px; }
   .hero-art { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: clamp(28px, 5svh, 64px); padding-block: 0 clamp(96px, 13.6svh, 160px); }
   /* Keep the original canvas and painted-art placement after SVG trimming.
-     Both launch states share this frame; asset dimensions never size the layout. */
+     Asset dimensions never size the layout. */
   h1 { width: min(88%, 1080px, 105svh); margin: 0; min-height: 0; aspect-ratio: 2135 / 665; display: grid; grid-template-rows: 31.0766% 62.5714% 1fr; }
   h1 picture { grid-row: 2; width: 99.1011%; height: 100%; min-height: 0; justify-self: center; }
   h1 img { width: 100%; height: 100%; object-fit: contain; }
@@ -138,24 +138,14 @@ const artwork = artworks[heroState];
 <script>
   const signLight = document.querySelector<HTMLButtonElement>('.sign-light');
   const lightHint = document.querySelector<HTMLElement>('.light-hint-text');
-  const heroTitle = document.querySelector<HTMLImageElement>('.hero-title-art');
-  const studioSvg = document.querySelector<HTMLImageElement>('.studio-svg');
-  const heroSource = document.querySelector<HTMLSourceElement>('.hero-art picture source');
   const root = document.documentElement;
 
-  const syncSign = () => {
+  const syncTheme = () => {
     const night = root.dataset.theme === 'night';
     document.querySelectorAll<HTMLImageElement>('img[data-day-src][data-night-src]').forEach((img) => {
       const src = night ? img.dataset.nightSrc : img.dataset.daySrc;
-      if (src) img.src = src;
+      if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
     });
-
-    if (studioSvg) {
-      studioSvg.src = night
-        ? '/svg/Ullim%20Yoga%20Studio-night.svg'
-        : '/svg/Ullim%20Yoga%20Studio.svg';
-    }
-
 
     signLight?.setAttribute(
       'aria-label',
@@ -166,27 +156,18 @@ const artwork = artworks[heroState];
       lightHint.textContent = window.innerWidth <= 700 ? 'TAP' : 'CLICK';
     }
 
-    if (heroTitle) {
-      heroTitle.src = night
-        ? '/svg/coming-soon-hor-night.svg'
-        : '/svg/coming-soon-hor.svg';
-    }
-
-    if (heroSource) {
-      heroSource.srcset = night
-        ? '/svg/coming-soon-ver-night.svg'
-        : '/svg/coming-soon-ver.svg';
-    }
-
     document.querySelector('meta[name="theme-color"]')?.setAttribute(
       'content',
       night ? '#211F1E' : '#FAF6E6'
     );
   };
-  syncSign();
+  syncTheme();
+  new MutationObserver(syncTheme).observe(root, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
   signLight?.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'night' ? 'day' : 'night';
     try { sessionStorage.setItem('ullim-theme', root.dataset.theme); } catch { /* Storage may be unavailable; toggling still works. */ }
-    syncSign();
   });
 </script>

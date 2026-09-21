@@ -1,18 +1,8 @@
 ---
-// Through 2026-09-20: keep coming-soon visible.
-// On 2026-09-21: change closingState to 'soft-open' and rebuild (no automatic switch).
-const closingState: 'coming-soon' | 'soft-open' = 'coming-soon';
-const messages = {
-  'coming-soon': {
-    title: '곧 만나요.',
-    details: ['9.21 상담 및 예약 시작', '10월 정식 오픈 예정'],
-  },
-  'soft-open': {
-    title: '상담 및 예약이 시작되었어요',
-    details: ['Soft Open 기간에도 수업에 참여하실 수 있어요', '10월 정식 오픈 예정입니다'],
-  },
+const message = {
+  title: '상담 및 예약이 시작되었어요',
+  details: ['Soft Open 기간에도 수업에 참여하실 수 있어요', '10월 정식 오픈 예정입니다'],
 };
-const message = messages[closingState];
 ---
 <section class="closing-info page-shell" aria-labelledby="closing-title">
   <div class="closing-copy">
@@ -22,44 +12,29 @@ const message = messages[closingState];
     </div>
 
     <div class="closing-location" aria-label="울림요가 위치">
-      <address>경기도 성남시 중원구 둔촌대로113번길 8</address>
+<address>경기도 성남시 중원구 둔촌대로113번길 8, 1층</address>
     </div>
 
-    {closingState === 'coming-soon' && (
-      <div class="closing-reservation">
+    <div class="closing-reservation">
+      <button
+        class="closing-reservation-trigger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="closing-reservation-panel"
+      >
+        상담 · 예약 문의 ↗
+      </button>
+
+      <div id="closing-reservation-panel" class="closing-reservation-panel" hidden>
+        <p><strong>예약 페이지를 준비하고 있어요.</strong></p>
+        <p>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</p>
         <a
-          class="closing-reservation-trigger closing-coming-instagram"
           href="https://www.instagram.com/ullim.yoga/"
           target="_blank"
           rel="noopener noreferrer"
         >@ullim.yoga ↗</a>
       </div>
-    )}
-
-    {closingState === 'soft-open' && (
-      <div class="closing-reservation">
-        <button
-          class="closing-reservation-trigger"
-          type="button"
-          aria-expanded="false"
-          aria-controls="closing-reservation-panel"
-        >
-          상담 · 예약 문의 ↗
-        </button>
-
-        
-
-        <div id="closing-reservation-panel" class="closing-reservation-panel" hidden>
-          <p><strong>예약 페이지를 준비하고 있어요.</strong></p>
-          <p>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</p>
-          <a
-            href="https://www.instagram.com/ullim.yoga/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >@ullim.yoga ↗</a>
-        </div>
-      </div>
-    )}
+    </div>
   </div>
 </section>
 <style>
@@ -128,13 +103,6 @@ const message = messages[closingState];
     color: var(--color-ink);
   }
 
-  .closing-location-label {
-    margin: 0 0 14px;
-    font-size: 10px;
-    line-height: 1.5;
-    letter-spacing: .14em;
-  }
-
   .closing-location address {
     margin: 0;
     font-style: normal;
@@ -142,16 +110,6 @@ const message = messages[closingState];
     line-height: 1.7;
     letter-spacing: -.025em;
     word-break: keep-all;
-  }
-
-  .closing-location a {
-    display: inline-block;
-    margin-top: 10px;
-    color: inherit;
-    font-size: 12px;
-    line-height: 1.6;
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
   }
 
   .closing-reservation {
@@ -171,7 +129,6 @@ const message = messages[closingState];
     letter-spacing: -.02em;
     cursor: pointer;
   }
-
 
   .closing-reservation-panel {
     width: min(420px, 100%);

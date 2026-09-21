@@ -44,22 +44,6 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     pointer-events: none;
   }
 
-  .floating-center {
-    position: fixed;
-    left: 50%;
-    bottom: max(22px, env(safe-area-inset-bottom));
-    z-index: 30;
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    color: var(--floating-ink);
-    font: 10px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    letter-spacing: .02em;
-  }
-
-  .floating-center a,
   .reservation-panel a {
     color: inherit;
     text-decoration: none;
@@ -144,21 +128,6 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
 
     .floating-location {
       display: none;
-    }
-
-    .floating-center {
-      left: var(--page-gutter);
-      bottom: max(14px, env(safe-area-inset-bottom));
-      transform: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
-      max-width: 65vw;
-      white-space: normal;
-      color: var(--color-ink);
-      font-size: 8px;
-      line-height: 1.55;
     }
 
     .reservation-wrap {

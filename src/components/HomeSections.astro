@@ -70,7 +70,7 @@ import PhotoDrift from './PhotoDrift.astro';
   QR IS TAKING<br />
   ITS TIME...
 </p>
-        <img class="signature theme-svg" data-day-src="/svg/illustration-signature.svg" data-night-src="/svg/illustration-signature-night.svg" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
+        <img class="signature" data-day-src="/svg/illustration-signature.svg" data-night-src="/svg/illustration-signature-night.svg" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
       </div>
     </section>
   </div>
@@ -172,14 +172,6 @@ import PhotoDrift from './PhotoDrift.astro';
   @media (max-width: 700px) {
     section { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px 12px; }
 
-    .breath-break {
-      min-height: 82svh;
-    }
-
-    .breath-break-inner {
-      font-size: clamp(64px, 21vw, 96px);
-      line-height: .84;
-    }
     section p { font-size: 15px; line-height: 1.9; }
     .headline { font-size: clamp(22px, 5.7vw, 28px); margin-bottom: 28px; }
 
@@ -225,26 +217,6 @@ import PhotoDrift from './PhotoDrift.astro';
 </style>
 
 <script>
-  const themeRoot = document.documentElement;
-
-  const syncSectionTheme = () => {
-    const night = themeRoot.dataset.theme === 'night';
-
-    document.querySelectorAll<HTMLImageElement>(
-      'img[data-day-src][data-night-src]'
-    ).forEach((img) => {
-      const src = night ? img.dataset.nightSrc : img.dataset.daySrc;
-      if (src) img.setAttribute('src', src);
-    });
-  };
-
-  syncSectionTheme();
-
-  new MutationObserver(syncSectionTheme).observe(themeRoot, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
-  });
-
   const parallaxFrames = Array.from(
     document.querySelectorAll<HTMLElement>('.parallax-frame')
   );

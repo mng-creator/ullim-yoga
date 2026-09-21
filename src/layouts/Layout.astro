@@ -51,13 +51,13 @@ const localBusiness = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
-    <meta name="theme-color" content="#f3f0e8" />
+    <meta name="theme-color" content="#FAF6E6" />
     <script is:inline>
       // Restore only an explicit choice from this tab, before the first paint.
       try {
         if (sessionStorage.getItem('ullim-theme') === 'night') {
           document.documentElement.dataset.theme = 'night';
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#211d1b');
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#211F1E');
         }
       } catch { /* Default to day when storage is unavailable. */ }
     </script>
