@@ -16,6 +16,31 @@
   <button class="price-close" type="button" aria-label="가격표 닫기" lang="en" autofocus>CLOSE ×</button>
   <div class="price-artwork">
     <img src="/svg/class-passes.svg" data-keep-svg-color alt="울림요가 클래스 수강권 가격표" />
+    <dl class="sr-only">
+      <dt lang="en">Yoga Drop-in</dt>
+      <dd>₩35,000</dd>
+      <dt lang="en">Yoga 8-Class Pass</dt>
+      <dd>₩240,000</dd>
+      <dt lang="en">Yoga 12-Class Pass</dt>
+      <dd>₩336,000</dd>
+      <dt lang="en">Yoga 24-Class Pass</dt>
+      <dd>₩600,000</dd>
+      <dt lang="en">Yoga 36-Class Pass</dt>
+      <dd>₩864,000</dd>
+      <dt lang="en">Sound Bath Single Session</dt>
+      <dd>₩30,000</dd>
+    </dl>
+    <section class="price-guide" aria-labelledby="price-guide-title">
+      <h2 id="price-guide-title">이용 안내</h2>
+      <ul>
+        <li>Drop-in: 구매일로부터 14일 이내 사용</li>
+        <li>8-Class Pass: 첫 수업일부터 6주</li>
+        <li>12-Class Pass: 첫 수업일부터 8주</li>
+        <li>24-Class Pass: 첫 수업일부터 16주</li>
+        <li>36-Class Pass: 첫 수업일부터 24주, 1회 최대 4주 홀딩 가능</li>
+        <li>클래스 패스는 구매 후 30일 이내 시작</li>
+      </ul>
+    </section>
   </div>
 </dialog>
 
@@ -135,6 +160,7 @@
   #price-overlay::backdrop { background: #FAF6E6; }
   .price-close {
     position: fixed;
+    z-index: 1;
     top: 32px;
     right: var(--page-gutter);
     border: 0;
@@ -147,17 +173,30 @@
   }
   .price-artwork {
     display: flex;
+    flex-direction: column;
+    gap: 28px;
     align-items: center;
     justify-content: center;
     min-height: 100%;
-    padding: 40px var(--page-gutter);
+    padding: 88px var(--page-gutter) 40px;
   }
 .price-artwork img {
+  flex-shrink: 0;
   width: auto;
   max-width: min(100%, 400px);
   max-height: min(58vh, calc(100dvh - 120px));
   object-fit: contain;
 }
+  .price-guide {
+    width: min(100%, 400px);
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: -.02em;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .price-guide h2 { margin: 0 0 8px; font-size: 13px; font-weight: 400; }
+  .price-guide ul { margin: 0; padding-left: 16px; }
   @media (max-width: 700px) {
     .site-header { padding-block: 20px; }
     nav { top: 76px; }

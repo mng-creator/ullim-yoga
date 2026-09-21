@@ -14,6 +14,14 @@ const message = {
     <div class="closing-location" aria-label="울림요가 위치">
 <address>경기도 성남시 중원구 둔촌대로113번길 8, 1층</address>
     </div>
+    <section class="opening-hours" aria-labelledby="opening-hours-title">
+      <h3 id="opening-hours-title">운영 안내</h3>
+      <p>월–금 13:00–22:00</p>
+      <p>토 15:00–20:00</p>
+      <p>일 15:00–19:00 · 사운드배스 예약 수업 중심</p>
+      <p>공휴일 휴무</p>
+      <p>일요일은 예약 수업이 없을 경우 상주하지 않을 수 있습니다.</p>
+    </section>
 
     <div class="closing-reservation">
       <button
@@ -117,6 +125,19 @@ const message = {
     margin: 18px auto 0;
     text-align: center;
   }
+  .opening-hours {
+    max-width: 420px;
+    margin: 24px auto 0;
+    color: var(--color-ink);
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+    letter-spacing: -.02em;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .opening-hours h3 { margin: 0 0 8px; font-size: inherit; font-weight: 400; }
+  .opening-hours p { margin: 0; }
 
   .closing-reservation-trigger {
     padding: 3px 0;

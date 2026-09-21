@@ -5,6 +5,7 @@ const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile:
 <section class="hero" aria-label={artwork.label}>
   <div class="hero-art page-shell">
     <h1>
+      <span class="sr-only">울림요가 | 성남 모란 요가·사운드배스</span>
       <picture>
         <source media="(max-width: 700px)" srcset={artwork.mobile} width={artwork.mobileWidth} height={artwork.mobileHeight} />
         <img class="hero-title-art" data-keep-svg-color src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
