@@ -21,16 +21,22 @@ const artworks = {
 };
 const artwork = artworks[heroState];
 ---
+<svg class="hero-color-filter" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="hero-night-ink" color-interpolation-filters="sRGB">
+      <feFlood flood-color="var(--color-ink)" />
+      <feComposite in2="SourceAlpha" operator="in" />
+    </filter>
+  </defs>
+</svg>
 <section class="hero" aria-label={artwork.label}>
   <div class="hero-art page-shell">
     <h1>
       <span class="sr-only">울림요가 | 성남 모란 요가·사운드배스</span>
-      <span
-        class="hero-title-art"
-        role="img"
-        aria-label={artwork.label}
-        style={{ '--hero-desktop': `url("${artwork.desktop}")`, '--hero-mobile': `url("${artwork.mobile}")` }}
-      ></span>
+      <picture class="hero-title-art">
+        <source media="(max-width: 700px)" srcset={artwork.mobile} />
+        <img src={artwork.desktop} alt={artwork.label} fetchpriority="high" />
+      </picture>
     </h1>
     <div class="studio-drawing">
       <span class="studio-svg themed-svg" role="img" aria-label="울림요가 스튜디오 건물 일러스트" style="--artwork: url('/svg/ullim-yoga-studio.svg'); aspect-ratio: 990 / 381"></span>
@@ -66,10 +72,12 @@ const artwork = artworks[heroState];
     height: 100%;
     min-height: 0;
     justify-self: center;
-    background-color: var(--color-ink);
-    -webkit-mask: var(--hero-desktop) center / contain no-repeat;
-    mask: var(--hero-desktop) center / contain no-repeat;
   }
+
+  .hero-title-art img { width: 100%; height: 100%; object-fit: contain; }
+  /* Tint only at night, preserving the SVG alpha and the shared theme ink. */
+  .hero-color-filter { position: absolute; pointer-events: none; }
+  :global(html[data-theme='night']) .hero-title-art img { filter: url(#hero-night-ink); }
 
   .studio-drawing { position: relative; width: min(54%, 580px, 67svh); }
   .studio-drawing > .studio-svg { width: 100%; }
@@ -163,8 +171,6 @@ const artwork = artworks[heroState];
     h1 { width: min(100%, 440px, 60svh); aspect-ratio: 1510 / 1035; grid-template-rows: 20.542% 65.1613% 1fr; }
     .hero-title-art {
       width: 98.729%;
-      -webkit-mask-image: var(--hero-mobile);
-      mask-image: var(--hero-mobile);
     }
     .studio-drawing { width: min(92%, 380px, 65svh); }
   }
@@ -178,6 +184,11 @@ const artwork = artworks[heroState];
 
   const syncTheme = () => {
     const night = root.dataset.theme === 'night';
+    const yogaTitle = document.querySelector<HTMLImageElement>('#yoga-title img');
+    if (yogaTitle) {
+      const src = night ? yogaTitle.dataset.nightSrc : yogaTitle.dataset.daySrc;
+      if (src && yogaTitle.getAttribute('src') !== src) yogaTitle.setAttribute('src', src);
+    }
     signLight?.setAttribute(
       'aria-label',
       night ? '조명을 끄고 주간 모드로 돌아가기' : '조명을 켜고 야간 모드 보기'
