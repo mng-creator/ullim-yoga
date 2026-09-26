@@ -3,7 +3,7 @@ import PhotoDrift from './PhotoDrift.astro';
 ---
 <div class="editorial page-shell">
   <section id="about" class="about" aria-labelledby="about-title">
-    <h2 id="about-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/About.svg" data-night-src="/svg/About-night.svg" style="--intrinsic-width: 53" src="/svg/About.svg" width="53" height="12" alt="ABOUT" /></h2>
+    <h2 id="about-title" class="graphic-title"><span class="section-title-svg themed-svg" role="img" aria-label="ABOUT" style="--intrinsic-width: 53; --artwork: url('/svg/about.svg'); aspect-ratio: 53 / 12"></span></h2>
     <div class="about-copy">
       <h3 class="headline">지금의 몸을 이해하는 것에서<br />움직임을 시작합니다.</h3>
       <div class="body-copy">
@@ -18,7 +18,7 @@ import PhotoDrift from './PhotoDrift.astro';
   </section>
 
   <section id="classes" class="yoga" aria-labelledby="yoga-title">
-    <h2 id="yoga-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/Yoga.svg" data-night-src="/svg/Yoga-night.svg" style="--intrinsic-width: 39" src="/svg/Yoga.svg" width="39" height="17" alt="YOGA" /></h2>
+    <h2 id="yoga-title" class="graphic-title"><span class="section-title-svg themed-svg" role="img" aria-label="YOGA" style="--intrinsic-width: 39; --artwork: url('/svg/yoga.svg'); aspect-ratio: 39 / 17"></span></h2>
     <div class="yoga-image parallax-frame">
       <img class="parallax-media" src="/images/generated/yoga_1.png" width="3344" height="1882" alt="햇빛이 드는 공간에서 두 손으로 바닥을 짚고 가슴을 열어 올리는 요가 수련자" loading="lazy" />
     </div>
@@ -32,7 +32,7 @@ import PhotoDrift from './PhotoDrift.astro';
   </section>
 
   <section class="sound" aria-labelledby="sound-title">
-    <h2 id="sound-title" class="graphic-title"><img class="section-title-svg" data-day-src="/svg/Sound%20Bath.svg" data-night-src="/svg/Sound%20Bath-night.svg" style="--intrinsic-width: 103" src="/svg/Sound%20Bath.svg" width="103" height="14" alt="SOUND BATH" /></h2>
+    <h2 id="sound-title" class="graphic-title"><span class="section-title-svg themed-svg" role="img" aria-label="SOUND BATH" style="--intrinsic-width: 103; --artwork: url('/svg/sound-bath.svg'); aspect-ratio: 103 / 14"></span></h2>
     <div class="sound-content">
       <div class="sound-copy">
         <h3 class="headline">소리와 진동에 머무는 시간.</h3>
@@ -48,15 +48,7 @@ import PhotoDrift from './PhotoDrift.astro';
   <div class="closing-note">
     <section class="message" aria-labelledby="letter-title">
       <h2 id="letter-title" lang="en">
-  <img
-    class="letter-title-svg"
-    data-day-src="/svg/dear-you.svg"
-    data-night-src="/svg/dear-you-night.svg"
-    src="/svg/dear-you.svg"
-    width="247"
-    height="56"
-    alt="Dear you,"
-  />
+  <span class="letter-title-svg themed-svg" role="img" aria-label="Dear you," style="--artwork: url('/svg/dear-you.svg'); aspect-ratio: 247 / 56"></span>
 </h2>
       <p>하루 종일 해야 할 것들을 따라가다 보면 내 몸이 어떤지 들여다보는 일은 자꾸 뒤로 미뤄집니다.</p>
       <p>울림요가에 있는 동안만큼은 조금 천천히 움직여도, 잠시 멈춰 있어도 좋았으면 합니다. 잘 해내는 것보다 오늘의 몸을 알아차리고, 나에게 필요한 움직임과 쉼을 찾아가는 시간.</p>
@@ -66,11 +58,7 @@ import PhotoDrift from './PhotoDrift.astro';
     <section id="visit" class="visit" aria-label="네이버 지도로 찾아오시는 길">
       <div class="qr-artwork">
         <img class="map-qr" data-keep-svg-color src="/svg/qr.svg" width="508" height="777" alt="울림요가 네이버 지도 QR 안내" loading="lazy" />
-        <p class="qr-waiting" aria-hidden="true">
-  QR IS TAKING<br />
-  ITS TIME...
-</p>
-        <img class="signature" data-day-src="/svg/illustration-signature.svg" data-night-src="/svg/illustration-signature-night.svg" src="/svg/illustration-signature.svg" width="808" height="796" alt="" loading="lazy" />
+        <span class="signature themed-svg" aria-hidden="true" style="--artwork: url('/svg/illustration-signature.svg'); aspect-ratio: 808 / 796"></span>
       </div>
     </section>
   </div>
@@ -135,21 +123,6 @@ import PhotoDrift from './PhotoDrift.astro';
      shift its center. Its left edge clears the code and its quiet zone. */
   .qr-artwork { position: relative; width: min(80%, 360px); margin-inline: auto; }
   .qr-artwork .map-qr { width: 100%; }
-.qr-waiting {
-  position: absolute;
-  top: 57%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  font-size: 6px;
-  line-height: 1.25;
-  letter-spacing: 0.08em;
-  text-align: center;
-  white-space: nowrap;
-  color: #632F3E;
-  opacity: 0.7;
-  pointer-events: none;
-}
   .qr-artwork .signature { position: absolute; width: 32%; right: -12%; bottom: -3%; }
 
   @media (min-width: 1600px) {

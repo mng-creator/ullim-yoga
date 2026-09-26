@@ -1,6 +1,6 @@
 <header class="site-header">
   <a class="brand" href="/" aria-label="Ullim Yoga Studio 홈">
-      <img class="theme-logo" data-day-src="/svg/logo-en-horizontal-black.svg" data-night-src="/svg/logo-en-horizontal-night.svg" src="/svg/logo-en-horizontal-black.svg" width="338" height="36" alt="Ullim Yoga Studio" />
+      <span class="theme-logo themed-svg" role="img" aria-label="Ullim Yoga Studio" style="--artwork: url('/svg/logo-en-horizontal-black.svg'); aspect-ratio: 338 / 36"></span>
   </a>
   <button class="menu-toggle" popovertarget="site-menu" lang="en">MENU</button>
 </header>
@@ -15,29 +15,33 @@
 <dialog id="price-overlay" aria-label="울림요가 수강권 가격표">
   <button class="price-close" type="button" aria-label="가격표 닫기" lang="en" autofocus>CLOSE ×</button>
   <div class="price-artwork">
-    <img src="/svg/class-passes.svg" data-keep-svg-color alt="울림요가 클래스 수강권 가격표" />
-    <dl class="sr-only">
-      <dt lang="en">Yoga Drop-in</dt>
-      <dd>₩35,000</dd>
-      <dt lang="en">Yoga 8-Class Pass</dt>
-      <dd>₩240,000</dd>
-      <dt lang="en">Yoga 12-Class Pass</dt>
-      <dd>₩336,000</dd>
-      <dt lang="en">Yoga 24-Class Pass</dt>
-      <dd>₩600,000</dd>
-      <dt lang="en">Yoga 36-Class Pass</dt>
-      <dd>₩864,000</dd>
-      <dt lang="en">Sound Bath Single Session</dt>
-      <dd>₩30,000</dd>
-    </dl>
+    <section class="price-card" lang="en" aria-labelledby="price-card-title">
+      <h2 id="price-card-title">CLASS PASSES</h2>
+      <section class="price-category" aria-labelledby="price-yoga-title">
+        <h3 id="price-yoga-title">YOGA</h3>
+        <dl>
+          <div><dt>DROP-IN</dt><dd>₩35,000</dd></div>
+          <div><dt>8-CLASS PASS</dt><dd>₩240,000</dd></div>
+          <div><dt>12-CLASS PASS</dt><dd>₩336,000</dd></div>
+          <div><dt>24-CLASS PASS</dt><dd>₩600,000</dd></div>
+          <div><dt>36-CLASS PASS</dt><dd>₩864,000</dd></div>
+        </dl>
+      </section>
+      <section class="price-category" aria-labelledby="price-sound-title">
+        <h3 id="price-sound-title">SOUND BATH</h3>
+        <dl>
+          <div><dt>SINGLE SESSION</dt><dd>₩30,000</dd></div>
+        </dl>
+      </section>
+    </section>
     <section class="price-guide" aria-labelledby="price-guide-title">
       <h2 id="price-guide-title">이용 안내</h2>
       <ul>
-        <li>Drop-in: 구매일로부터 14일 이내 사용</li>
-        <li>8-Class Pass: 첫 수업일부터 6주</li>
-        <li>12-Class Pass: 첫 수업일부터 8주</li>
-        <li>24-Class Pass: 첫 수업일부터 16주</li>
-        <li>36-Class Pass: 첫 수업일부터 24주, 1회 최대 4주 홀딩 가능</li>
+        <li><span lang="en">Drop-in</span>: 구매일로부터 14일 이내 사용</li>
+        <li><span lang="en">8-Class Pass</span>: 첫 수업일부터 2개월</li>
+        <li><span lang="en">12-Class Pass</span>: 첫 수업일부터 3개월</li>
+        <li><span lang="en">24-Class Pass</span>: 첫 수업일부터 4개월</li>
+        <li><span lang="en">36-Class Pass</span>: 첫 수업일부터 5개월, 1회 최대 4주 홀딩 가능</li>
         <li>클래스 패스는 구매 후 30일 이내 시작</li>
       </ul>
     </section>
@@ -118,7 +122,8 @@
     background: none;
     color: var(--color-ink);
     pointer-events: auto;
-    font: 11px var(--font-sans);
+    font-size: 11px;
+    font-weight: 400;
     letter-spacing: .12em;
     cursor: pointer;
   }
@@ -137,7 +142,6 @@
     padding-inline: 0;
     background: none;
     color: inherit;
-    font-family: inherit;
     text-decoration: underline;
     cursor: pointer;
   }
@@ -167,7 +171,8 @@
     padding: 12px 0 12px 12px;
     background: #FAF6E6;
     color: inherit;
-    font: 11px var(--font-sans);
+    font-size: 11px;
+    font-weight: 400;
     letter-spacing: .12em;
     cursor: pointer;
   }
@@ -180,15 +185,41 @@
     min-height: 100%;
     padding: 88px var(--page-gutter) 40px;
   }
-.price-artwork img {
-  flex-shrink: 0;
-  width: auto;
-  max-width: min(100%, 400px);
-  max-height: min(58vh, calc(100dvh - 120px));
-  object-fit: contain;
-}
+  .price-card {
+    flex-shrink: 0;
+    width: min(100%, 500px);
+    font-size: clamp(13px, 2.4vw, 16px);
+    line-height: 1.5;
+    letter-spacing: .04em;
+    user-select: text;
+  }
+  .price-card h2 {
+    margin: 0;
+    padding-bottom: 24px;
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 600;
+  }
+  .price-category {
+    border-top: 1px solid currentColor;
+    padding-top: 24px;
+  }
+  .price-category + .price-category { margin-top: 32px; }
+  .price-category h3 {
+    margin: 0 0 20px;
+    font-size: clamp(17px, 3vw, 20px);
+    font-weight: 600;
+  }
+  .price-card dl { margin: 0; font-weight: 500; letter-spacing: .04em; }
+  .price-card dl > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 16px;
+    padding-block: 8px;
+  }
+  .price-card dt { overflow-wrap: anywhere; }
+  .price-card dd { margin: 0; text-align: right; }
   .price-guide {
-    width: min(100%, 400px);
+    width: min(100%, 500px);
     font-size: 12px;
     line-height: 1.8;
     letter-spacing: -.02em;
@@ -202,6 +233,5 @@
     nav { top: 76px; }
     .price-close { top: 20px; }
     .price-artwork { padding: 76px 24px 32px; }
-    .price-artwork img { width: 100%; max-width: 100%; max-height: none; }
   }
 </style>

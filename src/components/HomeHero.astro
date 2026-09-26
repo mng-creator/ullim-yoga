@@ -1,21 +1,42 @@
 ---
-// Filenames match the supplied Soft Open assets, including case.
-const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile: '/svg/Soft-Open-ver.svg', width: 500, height: 113, mobileWidth: 310, mobileHeight: 218 };
+type HeroState = 'coming-soon' | 'soft-open' | 'grand-open';
+
+const heroState: HeroState = 'soft-open';
+const artworks = {
+  'coming-soon': {
+    label: 'Coming Soon',
+    desktop: '/svg/coming-soon-hor.svg',
+    mobile: '/svg/coming-soon-ver.svg',
+  },
+  'soft-open': {
+    label: 'Soft Open',
+    desktop: '/svg/soft-open-hor.svg',
+    mobile: '/svg/soft-open-ver.svg',
+  },
+  'grand-open': {
+    label: 'Grand Open',
+    desktop: '/svg/grand-open-hor.svg',
+    mobile: '/svg/grand-open-ver.svg',
+  },
+};
+const artwork = artworks[heroState];
 ---
 <section class="hero" aria-label={artwork.label}>
   <div class="hero-art page-shell">
     <h1>
       <span class="sr-only">울림요가 | 성남 모란 요가·사운드배스</span>
-      <picture>
-        <source media="(max-width: 700px)" srcset={artwork.mobile} width={artwork.mobileWidth} height={artwork.mobileHeight} />
-        <img class="hero-title-art" data-keep-svg-color src={artwork.desktop} width={artwork.width} height={artwork.height} alt={artwork.label} fetchpriority="high" />
-      </picture>
+      <span
+        class="hero-title-art"
+        role="img"
+        aria-label={artwork.label}
+        style={{ '--hero-desktop': `url("${artwork.desktop}")`, '--hero-mobile': `url("${artwork.mobile}")` }}
+      ></span>
     </h1>
     <div class="studio-drawing">
-      <img class="studio-svg" data-day-src="/svg/Ullim%20Yoga%20Studio.svg" data-night-src="/svg/Ullim%20Yoga%20Studio-night.svg" src="/svg/Ullim%20Yoga%20Studio.svg" width="990" height="381" alt="울림요가 스튜디오 건물 일러스트" />
+      <span class="studio-svg themed-svg" role="img" aria-label="울림요가 스튜디오 건물 일러스트" style="--artwork: url('/svg/ullim-yoga-studio.svg'); aspect-ratio: 990 / 381"></span>
       <button class="sign-light" type="button" aria-label="야간 모드 켜기"></button>
       <span class="light-hint" aria-hidden="true">
-        <span class="light-hint-text">CLICK</span>
+        <span class="light-hint-text" lang="en">CLICK</span>
         <span class="light-hint-arrow">↘</span>
       </span>
     </div>
@@ -39,11 +60,19 @@ const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile:
   /* Keep the original canvas and painted-art placement after SVG trimming.
      Asset dimensions never size the layout. */
   h1 { width: min(88%, 1080px, 105svh); margin: 0; min-height: 0; aspect-ratio: 2135 / 665; display: grid; grid-template-rows: 31.0766% 62.5714% 1fr; }
-  h1 picture { grid-row: 2; width: 99.1011%; height: 100%; min-height: 0; justify-self: center; }
-  h1 img { width: 100%; height: 100%; object-fit: contain; }
+  .hero-title-art {
+    grid-row: 2;
+    width: 99.1011%;
+    height: 100%;
+    min-height: 0;
+    justify-self: center;
+    background-color: var(--color-ink);
+    -webkit-mask: var(--hero-desktop) center / contain no-repeat;
+    mask: var(--hero-desktop) center / contain no-repeat;
+  }
 
   .studio-drawing { position: relative; width: min(54%, 580px, 67svh); }
-  .studio-drawing > img { width: 100%; }
+  .studio-drawing > .studio-svg { width: 100%; }
   /* Interactive warm glow positioned over the projecting Yoga sign. */
   .sign-light {
     position: absolute;
@@ -69,7 +98,9 @@ const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile:
     align-items: flex-end;
     gap: 5px;
     color: var(--color-ink);
-    font: 400 9px/1.2 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1.2;
     letter-spacing: .08em;
     white-space: nowrap;
     pointer-events: none;
@@ -130,7 +161,11 @@ const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile:
     .hero { padding-top: 88px; }
     .hero-art { gap: clamp(40px, 7svh, 64px); padding-block: 0 clamp(48px, 8svh, 80px); }
     h1 { width: min(100%, 440px, 60svh); aspect-ratio: 1510 / 1035; grid-template-rows: 20.542% 65.1613% 1fr; }
-    h1 picture { width: 98.729%; }
+    .hero-title-art {
+      width: 98.729%;
+      -webkit-mask-image: var(--hero-mobile);
+      mask-image: var(--hero-mobile);
+    }
     .studio-drawing { width: min(92%, 380px, 65svh); }
   }
   @media (prefers-reduced-motion: reduce) { .marquee-track, .sign-light::before { animation: none; } }
@@ -143,11 +178,6 @@ const artwork = { label: 'Soft Open', desktop: '/svg/Soft-Open-hor.svg', mobile:
 
   const syncTheme = () => {
     const night = root.dataset.theme === 'night';
-    document.querySelectorAll<HTMLImageElement>('img[data-day-src][data-night-src]').forEach((img) => {
-      const src = night ? img.dataset.nightSrc : img.dataset.daySrc;
-      if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
-    });
-
     signLight?.setAttribute(
       'aria-label',
       night ? '조명을 끄고 주간 모드로 돌아가기' : '조명을 켜고 야간 모드 보기'

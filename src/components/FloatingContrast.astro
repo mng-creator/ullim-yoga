@@ -1,7 +1,7 @@
 <script>
   // Only bottom meta reacts to content; the opaque header stays dark.
   const controls = [...document.querySelectorAll<HTMLElement>('.floating-meta[data-floating-ink]')];
-  const content = [...document.querySelectorAll<HTMLElement>('.hero-art img, .graphic-title img, .headline, .about-image, .yoga-image, .sound-image, .signature, .photo-group img')];
+  const content = [...document.querySelectorAll<HTMLElement>('.hero-art .hero-title-art, .hero-art .studio-svg, .graphic-title .section-title-svg, .headline, .about-image, .yoga-image, .sound-image, .signature, .photo-group img')];
   const visible = new Set<HTMLElement>();
   let frame = 0;
   const update = () => {

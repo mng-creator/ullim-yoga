@@ -1,14 +1,14 @@
 ---
 const message = {
   title: '상담 및 예약이 시작되었어요',
-  details: ['Soft Open 기간에도 수업에 참여하실 수 있어요', '10월 정식 오픈 예정입니다'],
 };
 ---
 <section class="closing-info page-shell" aria-labelledby="closing-title">
   <div class="closing-copy">
     <h2 id="closing-title">{message.title}</h2>
     <div class="closing-details">
-      {message.details.map(detail => <p class="message-strip">{detail}</p>)}
+      <p class="message-strip"><span><span lang="en">Soft Open</span> 기간에도 수업에 참여하실 수 있어요</span></p>
+      <p class="message-strip">10월 정식 오픈 예정입니다</p>
     </div>
 
     <div class="closing-location" aria-label="울림요가 위치">
@@ -18,9 +18,8 @@ const message = {
       <h3 id="opening-hours-title">운영 안내</h3>
       <p>월–금 13:00–22:00</p>
       <p>토 15:00–20:00</p>
-      <p>일 15:00–19:00 · 사운드배스 예약 수업 중심</p>
+      <p>일 15:00–19:00 · 사운드배스 예약제로 운영</p>
       <p>공휴일 휴무</p>
-      <p>일요일은 예약 수업이 없을 경우 상주하지 않을 수 있습니다.</p>
     </section>
 
     <div class="closing-reservation">
@@ -35,8 +34,9 @@ const message = {
 
       <div id="closing-reservation-panel" class="closing-reservation-panel" hidden>
         <p><strong>예약 페이지를 준비하고 있어요.</strong></p>
-        <p>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</p>
+        <p>수업 및 예약 문의는 <span lang="en">Instagram DM</span>으로 남겨주세요.</p>
         <a
+          lang="en"
           href="https://www.instagram.com/ullim.yoga/"
           target="_blank"
           rel="noopener noreferrer"
@@ -146,7 +146,7 @@ const message = {
     text-decoration: none;
     background: transparent;
     color: var(--color-ink);
-    font: 400 13px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font: 400 13px/1.6 var(--font-sans);
     letter-spacing: -.02em;
     cursor: pointer;
   }

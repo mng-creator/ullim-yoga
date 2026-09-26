@@ -12,12 +12,13 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
   <div class="reservation-panel" id="reservation-panel" hidden>
     <strong>예약 페이지를 준비하고 있어요.</strong>
     <span>조금만 기다려주세요.</span>
-    <span>수업 및 예약 문의는 Instagram DM으로 남겨주세요.</span>
-    <a href={instagramUrl} target="_blank" rel="noopener noreferrer">@ullim.yoga ↗</a>
+    <span>수업 및 예약 문의는 <span lang="en">Instagram DM</span>으로 남겨주세요.</span>
+    <a lang="en" href={instagramUrl} target="_blank" rel="noopener noreferrer">@ullim.yoga ↗</a>
   </div>
 
   <button
     class="floating-meta floating-reservation"
+    lang="en"
     data-floating-ink
     type="button"
     aria-expanded="false"
@@ -34,7 +35,9 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     z-index: 30;
     margin: 0;
     color: var(--floating-ink);
-    font: 11px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.6;
     letter-spacing: .08em;
     text-decoration: none;
   }
@@ -62,7 +65,9 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     padding: 0;
     background: transparent;
     cursor: pointer;
-    font: 10px/1.6 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.6;
     letter-spacing: .08em;
   }
 
@@ -75,7 +80,9 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     background: var(--color-paper);
     color: var(--color-ink);
     border: 1px solid currentColor;
-    font: 12px/1.75 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.75;
     letter-spacing: -.01em;
   }
 
@@ -84,7 +91,7 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
   }
 
   .reservation-panel strong,
-  .reservation-panel span,
+  .reservation-panel > span,
   .reservation-panel a {
     display: block;
   }
