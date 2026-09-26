@@ -1,104 +1,37 @@
 <header class="site-header">
   <a class="brand" href="/" aria-label="Ullim Yoga Studio 홈">
-      <span class="theme-logo themed-svg" role="img" aria-label="Ullim Yoga Studio" style="--artwork: url('/svg/logo-en-horizontal-black.svg'); aspect-ratio: 338 / 36"></span>
+    <span
+      class="theme-logo themed-svg"
+      role="img"
+      aria-label="Ullim Yoga Studio"
+      style="--artwork: url('/svg/logo-en-horizontal-black.svg'); aspect-ratio: 338 / 36"
+    ></span>
   </a>
-  <button class="menu-toggle" popovertarget="site-menu" lang="en">MENU</button>
+
+  <button
+    class="menu-toggle"
+    popovertarget="site-menu"
+    lang="en"
+  >
+    MENU
+  </button>
 </header>
+
 <nav id="site-menu" popover aria-label="메인 메뉴">
-    <a href="#about" lang="en">ABOUT</a>
-    <a href="#classes" lang="en">CLASSES</a>
-    <button class="price-toggle" type="button" aria-haspopup="dialog" aria-controls="price-overlay" lang="en">PRICE</button>
-    <a href="#visit" lang="en">VISIT</a>
-    <a href="mailto:ullimyoga@naver.com" lang="en">CONTACT</a>
+  <a href="/" lang="en">HOME</a>
+  <a href="/schedule/" lang="en">SCHEDULE</a>
+  <a href="/price/" lang="en">PRICE</a>
+  <a href="mailto:ullimyoga@naver.com" lang="en">CONTACT</a>
 </nav>
 
-<dialog id="price-overlay" aria-label="울림요가 수강권 가격표">
-  <button class="price-close" type="button" aria-label="가격표 닫기" lang="en" autofocus>CLOSE ×</button>
-  <div class="price-artwork">
-    <section class="price-card" lang="en" aria-labelledby="price-card-title">
-      <h2 id="price-card-title">CLASS PASSES</h2>
-      <section class="price-category" aria-labelledby="price-yoga-title">
-        <h3 id="price-yoga-title">YOGA</h3>
-        <dl>
-          <div><dt>DROP-IN</dt><dd>₩35,000</dd></div>
-          <div><dt>8-CLASS PASS</dt><dd>₩240,000</dd></div>
-          <div><dt>12-CLASS PASS</dt><dd>₩336,000</dd></div>
-          <div><dt>24-CLASS PASS</dt><dd>₩600,000</dd></div>
-          <div><dt>36-CLASS PASS</dt><dd>₩864,000</dd></div>
-        </dl>
-      </section>
-      <section class="price-category" aria-labelledby="price-sound-title">
-        <h3 id="price-sound-title">SOUND BATH</h3>
-        <dl>
-          <div><dt>SINGLE SESSION</dt><dd>₩30,000</dd></div>
-        </dl>
-      </section>
-    </section>
-    <section class="price-guide" aria-labelledby="price-guide-title">
-      <h2 id="price-guide-title">이용 안내</h2>
-      <ul>
-        <li><span lang="en">Drop-in</span>: 구매일로부터 14일 이내 사용</li>
-        <li><span lang="en">8-Class Pass</span>: 첫 수업일부터 2개월</li>
-        <li><span lang="en">12-Class Pass</span>: 첫 수업일부터 3개월</li>
-        <li><span lang="en">24-Class Pass</span>: 첫 수업일부터 4개월</li>
-        <li><span lang="en">36-Class Pass</span>: 첫 수업일부터 5개월, 1회 최대 4주 홀딩 가능</li>
-        <li>클래스 패스는 구매 후 30일 이내 시작</li>
-      </ul>
-    </section>
-  </div>
-</dialog>
-
 <script>
-  const menu = document.querySelector<HTMLElement>('#site-menu');
+  const menu =
+    document.querySelector<HTMLElement>('#site-menu');
+
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu.hidePopover();
-
-      if (!link.hash) return;
-
-      const target = document.querySelector<HTMLElement>(link.hash);
-      target?.setAttribute('tabindex', '-1');
-      target?.focus({ preventScroll: true });
     });
-  });
-
-  const priceToggle = document.querySelector<HTMLButtonElement>('.price-toggle');
-  const priceOverlay = document.querySelector<HTMLDialogElement>('#price-overlay');
-  const priceClose = document.querySelector<HTMLButtonElement>('.price-close');
-  const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
-  let scrollX = 0;
-  let scrollY = 0;
-  let bodyStyle = '';
-
-  priceToggle?.addEventListener('click', () => {
-    if (!priceOverlay || priceOverlay.open) return;
-
-    scrollX = window.scrollX;
-    scrollY = window.scrollY;
-    bodyStyle = document.body.style.cssText;
-    menu?.hidePopover();
-    Object.assign(document.body.style, {
-      position: 'fixed',
-      top: `-${scrollY}px`,
-      left: `-${scrollX}px`,
-      width: '100%',
-      overflow: 'hidden',
-    });
-    priceOverlay.showModal();
-    priceOverlay.scrollTop = 0;
-  });
-
-  priceClose?.addEventListener('click', () => priceOverlay?.close());
-  priceOverlay?.addEventListener('click', (event) => {
-    if (event.target === priceOverlay ||
-        (event.target instanceof HTMLElement && event.target.classList.contains('price-artwork'))) {
-      priceOverlay.close();
-    }
-  });
-  priceOverlay?.addEventListener('close', () => {
-    document.body.style.cssText = bodyStyle;
-    window.scrollTo({ left: scrollX, top: scrollY, behavior: 'instant' });
-    menuToggle?.focus({ preventScroll: true });
   });
 </script>
 
@@ -107,131 +40,82 @@
     position: fixed;
     z-index: 30;
     inset: 0 0 auto;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 32px var(--page-gutter);
+
+    padding:
+      32px
+      var(--page-gutter);
+
     background: var(--color-paper);
     color: var(--color-ink);
+
     pointer-events: none;
   }
-  .brand { width: clamp(150px, 13vw, 190px); pointer-events: auto; }
+
+  .brand {
+    width: clamp(150px, 13vw, 190px);
+    pointer-events: auto;
+  }
+
   .menu-toggle {
     border: 0;
-    padding: 12px 0 12px 12px;
+
+    padding:
+      12px
+      0
+      12px
+      12px;
+
     background: none;
     color: var(--color-ink);
+
     pointer-events: auto;
+
     font-size: 11px;
     font-weight: 400;
     letter-spacing: .12em;
+
     cursor: pointer;
   }
+
   nav {
     position: fixed;
-    inset: 94px var(--page-gutter) auto auto;
+
+    inset:
+      94px
+      var(--page-gutter)
+      auto
+      auto;
+
     margin: 0;
     border: 0;
     padding: 24px;
+
     background: var(--color-paper);
     color: var(--color-ink);
   }
-  nav a, .price-toggle { display: block; padding-block: 12px; font-size: 12px; letter-spacing: .1em; text-underline-offset: 5px; }
-  .price-toggle {
-    border: 0;
-    padding-inline: 0;
-    background: none;
-    color: inherit;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  #price-overlay {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100dvh;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    border: 0;
-    padding: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    background: #FAF6E6;
-    color: #632F3E;
-    color-scheme: light;
-  }
-  #price-overlay::backdrop { background: #FAF6E6; }
-  .price-close {
-    position: fixed;
-    z-index: 1;
-    top: 32px;
-    right: var(--page-gutter);
-    border: 0;
-    padding: 12px 0 12px 12px;
-    background: #FAF6E6;
-    color: inherit;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: .12em;
-    cursor: pointer;
-  }
-  .price-artwork {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-    padding: 88px var(--page-gutter) 40px;
-  }
-  .price-card {
-    flex-shrink: 0;
-    width: min(100%, 500px);
-    font-size: clamp(13px, 2.4vw, 16px);
-    line-height: 1.5;
-    letter-spacing: .04em;
-    user-select: text;
-  }
-  .price-card h2 {
-    margin: 0;
-    padding-bottom: 24px;
-    font-size: clamp(22px, 4vw, 28px);
-    font-weight: 600;
-  }
-  .price-category {
-    border-top: 1px solid currentColor;
-    padding-top: 24px;
-  }
-  .price-category + .price-category { margin-top: 32px; }
-  .price-category h3 {
-    margin: 0 0 20px;
-    font-size: clamp(17px, 3vw, 20px);
-    font-weight: 600;
-  }
-  .price-card dl { margin: 0; font-weight: 500; letter-spacing: .04em; }
-  .price-card dl > div {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) max-content;
-    gap: 16px;
-    padding-block: 8px;
-  }
-  .price-card dt { overflow-wrap: anywhere; }
-  .price-card dd { margin: 0; text-align: right; }
-  .price-guide {
-    width: min(100%, 500px);
+
+  nav a {
+    display: block;
+
+    padding-block: 12px;
+
     font-size: 12px;
-    line-height: 1.8;
-    letter-spacing: -.02em;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
+    letter-spacing: .1em;
+
+    text-underline-offset: 5px;
   }
-  .price-guide h2 { margin: 0 0 8px; font-size: 13px; font-weight: 400; }
-  .price-guide ul { margin: 0; padding-left: 16px; }
+
   @media (max-width: 700px) {
-    .site-header { padding-block: 20px; }
-    nav { top: 76px; }
-    .price-close { top: 20px; }
-    .price-artwork { padding: 76px 24px 32px; }
+    .site-header {
+      padding-block: 20px;
+    }
+
+    nav {
+      top: 76px;
+    }
   }
 </style>
