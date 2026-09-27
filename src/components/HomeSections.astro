@@ -55,13 +55,33 @@ import PhotoDrift from './PhotoDrift.astro';
       <p>수업이 끝난 뒤 다시 일상으로 돌아갈 때 몸과 마음에 작은 여유가 남아 있기를 바랍니다.</p>
       <p lang="en">take your time.<br />Ullim Yoga</p>
     </section>
-    <section id="visit" class="visit" aria-label="네이버 지도로 찾아오시는 길">
-      <div class="qr-artwork">
-        <img class="map-qr" data-keep-svg-color src="/svg/qr.svg" width="508" height="777" alt="울림요가 네이버 지도 QR 안내" loading="lazy" />
-        <span class="signature themed-svg" aria-hidden="true" style="--artwork: url('/svg/illustration-signature.svg'); aspect-ratio: 808 / 796"></span>
-      </div>
-    </section>
+<section id="visit" class="visit" aria-label="네이버 지도로 찾아오시는 길">
+  <div class="qr-artwork">
+    <a
+      class="map-link"
+      href="https://naver.me/5HyBanCi"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="네이버 지도에서 울림요가 위치 보기"
+    >
+      <img
+        class="map-qr"
+        data-keep-svg-color
+        src="/svg/qr.svg"
+        width="508"
+        height="777"
+        alt="울림요가 네이버 지도 QR 안내"
+        loading="lazy"
+      />
+    </a>
+
+    <span
+      class="signature themed-svg"
+      aria-hidden="true"
+      style="--artwork: url('/svg/illustration-signature.svg'); aspect-ratio: 808 / 796"
+    ></span>
   </div>
+</section>  </div>
 </div>
 <PhotoDrift />
 
@@ -121,10 +141,28 @@ import PhotoDrift from './PhotoDrift.astro';
   .visit { padding-bottom: 24px; }
   /* The wrapper matches the QR itself, so the supporting character cannot
      shift its center. Its left edge clears the code and its quiet zone. */
-  .qr-artwork { position: relative; width: min(80%, 360px); margin-inline: auto; }
-  .qr-artwork .map-qr { width: 100%; }
-  .qr-artwork .signature { position: absolute; width: 32%; right: -12%; bottom: -3%; }
+.qr-artwork {
+  position: relative;
+  width: min(80%, 360px);
+  margin-inline: auto;
+}
 
+.qr-artwork .map-link {
+  display: block;
+  cursor: pointer;
+}
+
+.qr-artwork .map-qr {
+  display: block;
+  width: 100%;
+}
+
+.qr-artwork .signature {
+  position: absolute;
+  width: 32%;
+  right: -12%;
+  bottom: -3%;
+}
   @media (min-width: 1600px) {
 
     .body-copy, .about-copy .body-copy { max-width: 500px; }

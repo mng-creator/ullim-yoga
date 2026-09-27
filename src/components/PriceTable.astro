@@ -1,76 +1,122 @@
 <section class="price-section" aria-labelledby="price-title">
+  <div class="price-card">
 
-  <div class="price-card" lang="en">
+    <!-- TITLE -->
+    <header class="price-heading">
+      <h1 id="price-title" lang="en">CLASS PASSES</h1>
 
-    <h1 id="price-title">
-      CLASS PASSES
-    </h1>
+<p class="promo-copy">
+  <span lang="en">SOFT OPEN</span>
+  <span>
+    기간 클래스 패스 <span class="promo-number">15%</span> 할인
+    (<span class="promo-number">2</span>인 이상 동반 등록 시 추가 <span class="promo-number">5%</span>)
+  </span>
+</p>
+    </header>
 
+
+    <!-- COLUMN LABELS -->
+    <div class="column-head" aria-hidden="true">
+      <span></span>
+      <span lang="en">REGULAR</span>
+      <span lang="en">FINAL</span>
+    </div>
+
+
+    <!-- YOGA -->
     <section
       class="price-category"
       aria-labelledby="price-yoga-title"
     >
-      <h2 id="price-yoga-title">
-        YOGA
-      </h2>
+      <h2 id="price-yoga-title" lang="en">YOGA</h2>
 
-      <dl>
-        <div>
-          <dt>DROP-IN</dt>
-          <dd>₩35,000</dd>
+      <div class="price-list">
+
+        <div class="price-row">
+          <div class="pass-name" lang="en">DROP-IN</div>
+          <div class="regular-price"></div>
+          <div class="final-price" lang="en">₩35,000</div>
         </div>
 
-        <div>
-          <dt>8-CLASS PASS</dt>
-          <dd>₩240,000</dd>
+        <div class="price-row">
+          <div class="pass-name" lang="en">8-CLASS PASS</div>
+          <div class="regular-price" lang="en">
+            <del>₩240,000</del>
+          </div>
+          <div class="final-price" lang="en">₩204,000</div>
         </div>
 
-        <div>
-          <dt>12-CLASS PASS</dt>
-          <dd>₩336,000</dd>
+        <div class="price-row">
+          <div class="pass-name" lang="en">12-CLASS PASS</div>
+          <div class="regular-price" lang="en">
+            <del>₩336,000</del>
+          </div>
+          <div class="final-price" lang="en">₩285,600</div>
         </div>
 
-        <div>
-          <dt>24-CLASS PASS</dt>
-          <dd>₩600,000</dd>
+        <div class="price-row">
+          <div class="pass-name" lang="en">24-CLASS PASS</div>
+          <div class="regular-price" lang="en">
+            <del>₩600,000</del>
+          </div>
+          <div class="final-price" lang="en">₩510,000</div>
         </div>
 
-        <div>
-          <dt>36-CLASS PASS</dt>
-          <dd>₩864,000</dd>
+        <div class="price-row">
+          <div class="pass-name" lang="en">36-CLASS PASS</div>
+          <div class="regular-price" lang="en">
+            <del>₩864,000</del>
+          </div>
+          <div class="final-price" lang="en">₩734,400</div>
         </div>
-      </dl>
+
+      </div>
     </section>
 
 
+    <!-- SOUND BATH -->
     <section
       class="price-category"
       aria-labelledby="price-sound-title"
     >
-      <h2 id="price-sound-title">
-        SOUND BATH
-      </h2>
+      <h2 id="price-sound-title" lang="en">SOUND BATH</h2>
 
-      <dl>
-        <div>
-          <dt>SINGLE SESSION</dt>
-          <dd>₩30,000</dd>
+      <div class="price-list">
+
+        <div class="price-row">
+          <div class="pass-name" lang="en">SINGLE SESSION</div>
+          <div class="regular-price"></div>
+          <div class="final-price" lang="en">₩30,000</div>
         </div>
-      </dl>
+
+      </div>
     </section>
 
   </div>
 
 
+  <!-- GUIDE -->
   <section
     class="price-guide"
     aria-labelledby="price-guide-title"
   >
-    <h2 id="price-guide-title">
-      이용 안내
-    </h2>
+    <h2 id="price-guide-title">이용 안내</h2>
 
     <ul>
+      <li>
+        <span lang="en">Soft Open</span> 기간
+        8·12·24·36회 클래스 패스 15% 할인
+      </li>
+
+      <li>
+        2인 이상 동반 등록 시 추가 5% 할인
+      </li>
+
+      <li>
+        <span lang="en">Drop-in</span>과
+        <span lang="en"> Sound Bath</span>는 할인 대상에서 제외됩니다.
+      </li>
+
       <li>
         <span lang="en">Drop-in</span>:
         구매일로부터 14일 이내 사용
@@ -106,6 +152,10 @@
 
 
 <style>
+  /* ========================================
+     PAGE
+  ======================================== */
+
   .price-section {
     width: min(
       calc(100% - (var(--page-gutter) * 2)),
@@ -124,47 +174,115 @@
 
 
   /* ========================================
-     PRICE
+     TITLE
   ======================================== */
 
-  .price-card {
-    width: 100%;
-
-    font-size: clamp(13px, 2.4vw, 16px);
-    line-height: 1.5;
-    letter-spacing: .04em;
-
-    user-select: text;
+  .price-heading {
+    margin-bottom: 32px;
   }
 
-  .price-card h1 {
+  .price-heading h1 {
     margin: 0;
-
-    padding-bottom: 24px;
 
     font-family: var(--font-mono);
     font-size: clamp(22px, 4vw, 28px);
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.1;
     letter-spacing: .04em;
+  }
+
+.promo-copy {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+
+  margin: 18px 0 0;
+
+  color: var(--color-ink);
+
+  font-family:
+    'Pretendard',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -.02em;
+}
+
+.promo-copy [lang='en'],
+.promo-copy .promo-number {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+.promo-copy [lang='en'] {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+
+  /* ========================================
+     SHARED TABLE GRID
+  ======================================== */
+
+  .column-head,
+  .price-row {
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      112px
+      112px;
+
+    column-gap: 14px;
   }
 
 
   /* ========================================
-     CATEGORIES
+     REGULAR / FINAL
+  ======================================== */
+
+  .column-head {
+    align-items: center;
+
+    margin-bottom: 12px;
+
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: .04em;
+  }
+
+  .column-head span:nth-child(2),
+  .column-head span:nth-child(3) {
+    width: 100%;
+    text-align: center;
+  }
+
+
+  /* ========================================
+     CATEGORY
   ======================================== */
 
   .price-category {
     border-top: 1px solid currentColor;
-    padding-top: 24px;
+
+    padding-top: 28px;
   }
 
   .price-category + .price-category {
-    margin-top: 32px;
+    margin-top: 52px;
   }
 
   .price-category h2 {
-    margin: 0 0 20px;
+    margin: 0 0 16px;
 
     font-family: var(--font-mono);
     font-size: clamp(17px, 3vw, 20px);
@@ -173,34 +291,60 @@
     letter-spacing: .04em;
   }
 
-  .price-card dl {
-    margin: 0;
+
+  /* ========================================
+     PRICE ROWS
+  ======================================== */
+
+  .price-list {
+    width: 100%;
+  }
+
+  .price-row {
+    align-items: center;
+
+    min-height: 42px;
+
+    padding-block: 7px;
 
     font-family: var(--font-mono);
+    font-size: 14px;
     font-weight: 500;
+    line-height: 1.4;
     letter-spacing: .04em;
   }
 
-  .price-card dl > div {
-    display: grid;
-
-    grid-template-columns:
-      minmax(0, 1fr)
-      max-content;
-
-    gap: 16px;
-
-    padding-block: 8px;
+  .pass-name {
+    min-width: 0;
+    white-space: nowrap;
   }
 
-  .price-card dt {
-    overflow-wrap: anywhere;
-  }
+.regular-price,
+.final-price {
+  width: 100%;
+  color: var(--color-ink);
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-align: center;
+  white-space: nowrap;
+}
 
-  .price-card dd {
-    margin: 0;
-    text-align: right;
-  }
+.regular-price {
+  opacity: .5;
+}
+
+.regular-price del {
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+
+  text-decoration-line: line-through;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: .7px;
+  text-decoration-skip-ink: none;
+}
 
 
   /* ========================================
@@ -210,11 +354,18 @@
   .price-guide {
     width: 100%;
 
-    margin-top: 28px;
+    margin-top: 42px;
 
-    color: var(--color-muted);
+    color: var(--color-ink);
+
+    font-family:
+      'Pretendard',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      sans-serif;
 
     font-size: 12px;
+    font-weight: 400;
     line-height: 1.8;
     letter-spacing: -.02em;
 
@@ -223,17 +374,35 @@
   }
 
   .price-guide h2 {
-    margin: 0 0 8px;
+    margin: 0 0 12px;
 
     color: var(--color-ink);
 
+    font-family:
+      'Pretendard',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      sans-serif;
+
     font-size: 13px;
     font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -.02em;
   }
 
   .price-guide ul {
     margin: 0;
-    padding-left: 16px;
+    padding-left: 17px;
+  }
+
+  .price-guide li {
+    margin: 0;
+    padding-left: 1px;
+  }
+
+  .price-guide [lang='en'] {
+    font-family: var(--font-mono);
+    letter-spacing: .04em;
   }
 
 
@@ -242,6 +411,7 @@
   ======================================== */
 
   @media (max-width: 700px) {
+
     .price-section {
       width:
         calc(
@@ -255,12 +425,96 @@
         90px;
     }
 
-    .price-card h1 {
+    .price-heading {
+      margin-bottom: 28px;
+    }
+
+    .price-heading h1 {
       font-size: 22px;
     }
 
+    .promo-copy {
+      gap: 4px 7px;
+
+      margin-top: 14px;
+
+      font-size: 11px;
+    }
+
+
+    /* 헤더와 가격이 완전히 동일한 3열 사용 */
+    .column-head,
+    .price-row {
+      grid-template-columns:
+        minmax(0, 1fr)
+        86px
+        86px;
+
+      column-gap: 7px;
+    }
+
+    .column-head {
+      margin-bottom: 10px;
+
+      font-size: 12px;
+    }
+
+
+    /* YOGA / SOUND BATH 동일 규칙 */
+    .price-category {
+      padding-top: 24px;
+    }
+
+    .price-category + .price-category {
+      margin-top: 44px;
+    }
+
     .price-category h2 {
+      margin: 0 0 24px;
+
       font-size: 17px;
+    }
+
+
+    /* PRICE */
+    .price-row {
+      min-height: 38px;
+
+      padding-block: 6px;
+
+      font-size: 12px;
+    }
+
+
+    /* GUIDE */
+    .price-guide {
+      margin-top: 36px;
+
+      font-size: 11px;
+      line-height: 1.85;
+    }
+  }
+
+
+  /* ========================================
+     SMALL MOBILE
+  ======================================== */
+
+  @media (max-width: 390px) {
+
+    .column-head,
+    .price-row {
+      grid-template-columns:
+        minmax(0, 1fr)
+        80px
+        80px;
+
+      column-gap: 5px;
+    }
+
+    .column-head,
+    .price-row {
+      font-size: 11px;
     }
   }
 </style>

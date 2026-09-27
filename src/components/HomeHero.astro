@@ -2,6 +2,7 @@
 type HeroState = 'coming-soon' | 'soft-open' | 'grand-open';
 
 const heroState: HeroState = 'soft-open';
+
 const artworks = {
   'coming-soon': {
     label: 'Coming Soon',
@@ -19,114 +20,334 @@ const artworks = {
     mobile: '/svg/grand-open-ver.svg',
   },
 };
+
 const artwork = artworks[heroState];
 ---
-<svg class="hero-color-filter" width="0" height="0" aria-hidden="true" focusable="false">
+
+<svg
+  class="hero-color-filter"
+  width="0"
+  height="0"
+  aria-hidden="true"
+  focusable="false"
+>
   <defs>
-    <filter id="hero-night-ink" color-interpolation-filters="sRGB">
+    <filter
+      id="hero-night-ink"
+      color-interpolation-filters="sRGB"
+    >
       <feFlood flood-color="var(--color-ink)" />
-      <feComposite in2="SourceAlpha" operator="in" />
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+      />
     </filter>
   </defs>
 </svg>
-<section class="hero" aria-label={artwork.label}>
+
+<section
+  class="hero"
+  aria-label={artwork.label}
+>
   <div class="hero-art page-shell">
+
     <h1>
-      <span class="sr-only">울림요가 | 성남 모란 요가·사운드배스</span>
+      <span class="sr-only">
+        울림요가 | 성남 모란 요가·사운드배스
+      </span>
+
       <picture class="hero-title-art">
-        <source media="(max-width: 700px)" srcset={artwork.mobile} />
-        <img src={artwork.desktop} alt={artwork.label} fetchpriority="high" />
+        <source
+          media="(max-width: 700px)"
+          srcset={artwork.mobile}
+        />
+
+        <img
+          src={artwork.desktop}
+          alt={artwork.label}
+          fetchpriority="high"
+        />
       </picture>
     </h1>
+
     <div class="studio-drawing">
-      <span class="studio-svg themed-svg" role="img" aria-label="울림요가 스튜디오 건물 일러스트" style="--artwork: url('/svg/ullim-yoga-studio.svg'); aspect-ratio: 990 / 381"></span>
-      <button class="sign-light" type="button" aria-label="야간 모드 켜기"></button>
-      <span class="light-hint" aria-hidden="true">
-        <span class="light-hint-text" lang="en">CLICK</span>
-        <span class="light-hint-arrow">↘</span>
+
+      <span
+        class="studio-svg themed-svg"
+        role="img"
+        aria-label="울림요가 스튜디오 건물 일러스트"
+        style="--artwork: url('/svg/ullim-yoga-studio.svg'); aspect-ratio: 990 / 381"
+      ></span>
+
+      {
+        heroState === 'soft-open' && (
+          <img
+            class="soft-open-sale"
+            src="/svg/15-off.svg"
+            alt="소프트 오픈 기간 한정 15% 할인"
+          />
+        )
+      }
+
+      <button
+        class="sign-light"
+        type="button"
+        aria-label="야간 모드 켜기"
+      ></button>
+
+      <span
+        class="light-hint"
+        aria-hidden="true"
+      >
+        <span
+          class="light-hint-text"
+          lang="en"
+        >
+          CLICK
+        </span>
+
+        <span class="light-hint-arrow">
+          ↘
+        </span>
       </span>
+
     </div>
   </div>
-<div class="marquee" aria-label="Yoga, Breathe, Sound Bath, Move Gently, Tea, Take Your Time" lang="en">
-  <div class="marquee-track" aria-hidden="true">
-    {[0, 1].map(() => (
-      <div class="marquee-group">
-        {Array.from(
-          { length: 3 },
-          () => ['YOGA', 'BREATHE', 'SOUND BATH', 'MOVE GENTLY', 'TEA', 'TAKE YOUR TIME']
-        ).flat().map((item) => <span>{item}</span>)}
-      </div>
-    ))}
+
+  <div
+    class="marquee"
+    aria-label="Yoga, Breathe, Sound Bath, Move Gently, Tea, Take Your Time"
+    lang="en"
+  >
+    <div
+      class="marquee-track"
+      aria-hidden="true"
+    >
+      {
+        [0, 1].map(() => (
+          <div class="marquee-group">
+            {
+              Array.from(
+                { length: 3 },
+                () => [
+                  'YOGA',
+                  'BREATHE',
+                  'SOUND BATH',
+                  'MOVE GENTLY',
+                  'TEA',
+                  'TAKE YOUR TIME',
+                ]
+              )
+                .flat()
+                .map((item) => <span>{item}</span>)
+            }
+          </div>
+        ))
+      }
+    </div>
   </div>
-</div></section>
+</section>
 
 <style>
-  .hero { display: flex; flex-direction: column; padding-top: 76px; }
-  .hero-art { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: clamp(28px, 5svh, 64px); padding-block: 0 clamp(96px, 13.6svh, 160px); }
-  /* Keep the original canvas and painted-art placement after SVG trimming.
-     Asset dimensions never size the layout. */
-  h1 { width: min(88%, 1080px, 105svh); margin: 0; min-height: 0; aspect-ratio: 2135 / 665; display: grid; grid-template-rows: 31.0766% 62.5714% 1fr; }
+  .hero {
+    display: flex;
+    flex-direction: column;
+    padding-top: 76px;
+  }
+
+  .hero-art {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: clamp(28px, 5svh, 64px);
+
+    padding-block:
+      0
+      clamp(96px, 13.6svh, 160px);
+  }
+
+
+  /* ========================================
+     HERO TITLE
+     ======================================== */
+
+  h1 {
+    width: min(88%, 1080px, 105svh);
+    margin: 0;
+    min-height: 0;
+
+    aspect-ratio: 2135 / 665;
+
+    display: grid;
+
+    grid-template-rows:
+      31.0766%
+      62.5714%
+      1fr;
+  }
+
   .hero-title-art {
     grid-row: 2;
+
     width: 99.1011%;
     height: 100%;
     min-height: 0;
+
     justify-self: center;
   }
 
-  .hero-title-art img { width: 100%; height: 100%; object-fit: contain; }
-  /* Tint only at night, preserving the SVG alpha and the shared theme ink. */
-  .hero-color-filter { position: absolute; pointer-events: none; }
-  :global(html[data-theme='night']) .hero-title-art img { filter: url(#hero-night-ink); }
+  .hero-title-art img {
+    width: 100%;
+    height: 100%;
 
-  .studio-drawing { position: relative; width: min(54%, 580px, 67svh); }
-  .studio-drawing > .studio-svg { width: 100%; }
-  /* Interactive warm glow positioned over the projecting Yoga sign. */
+    object-fit: contain;
+  }
+
+
+  /* ========================================
+     NIGHT COLOR
+     ======================================== */
+
+  .hero-color-filter {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  :global(html[data-theme='night'])
+  .hero-title-art img {
+    filter: url(#hero-night-ink);
+  }
+
+
+  /* ========================================
+     STUDIO ILLUSTRATION
+     ======================================== */
+
+  .studio-drawing {
+    position: relative;
+
+    width: min(
+      54%,
+      580px,
+      67svh
+    );
+  }
+
+  .studio-drawing > .studio-svg {
+    width: 100%;
+  }
+
+
+  /* ========================================
+     SOFT OPEN 15% OFF
+     ======================================== */
+
+  .soft-open-sale {
+    position: absolute;
+    z-index: 3;
+
+    width: 19%;
+    height: auto;
+
+    top: -14%;
+    right: -5%;
+
+    pointer-events: none;
+  }
+
+
+  /* ========================================
+     SIGN LIGHT
+     ======================================== */
+
   .sign-light {
     position: absolute;
+
     left: 42.9%;
     top: 16%;
-    width: clamp(34px, 6.5%, 44px);
+
+    width: clamp(
+      34px,
+      6.5%,
+      44px
+    );
+
     aspect-ratio: 1 / 1;
-    transform: translate(-50%, -50%);
+
+    transform:
+      translate(-50%, -50%);
+
     padding: 0;
     border: 0;
     border-radius: 50%;
+
     background: transparent;
+
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+
+    -webkit-tap-highlight-color:
+      transparent;
+
     z-index: 2;
   }
 
+
+  /* ========================================
+     CLICK / TAP HINT
+     ======================================== */
+
   .light-hint {
     position: absolute;
+
     left: 22%;
     top: -6%;
+
     display: flex;
     align-items: flex-end;
+
     gap: 5px;
+
     color: var(--color-ink);
+
     font-size: 9px;
     font-weight: 400;
     line-height: 1.2;
+
     letter-spacing: .08em;
+
     white-space: nowrap;
+
     pointer-events: none;
+
     opacity: .9;
   }
 
   .light-hint-arrow {
     display: inline-block;
+
     font-size: 15px;
     line-height: 1;
-    transform: translateY(4px);
+
+    transform:
+      translateY(4px);
   }
+
+
+  /* ========================================
+     SIGN GLOW
+     ======================================== */
 
   .sign-light::before {
     content: '';
+
     position: absolute;
+
     inset: -55%;
+
     border-radius: 50%;
+
     background:
       radial-gradient(
         ellipse,
@@ -136,80 +357,301 @@ const artwork = artworks[heroState];
         rgb(255 214 74 / .08) 64%,
         transparent 78%
       );
+
     filter: blur(4px);
+
     opacity: .62;
+
     transform: scale(.92);
+
     pointer-events: none;
-    animation: sign-breathe 1.2s ease-in-out infinite;
+
+    animation:
+      sign-breathe
+      1.2s
+      ease-in-out
+      infinite;
   }
 
-  :global(html[data-theme='night']) .sign-light::before {
+  :global(html[data-theme='night'])
+  .sign-light::before {
     opacity: .82;
     filter: blur(3px);
   }
 
   @keyframes sign-breathe {
-    0%, 100% {
+    0%,
+    100% {
       opacity: .42;
       transform: scale(.88);
     }
+
     50% {
       opacity: 1;
       transform: scale(1.28);
     }
   }
 
-  .marquee { overflow: hidden; width: 100%; flex-shrink: 0; padding-block: 14px; border-block: 1px solid currentColor; color: var(--color-ink); }
-  .marquee-track { display: flex; width: max-content; --item-gap: clamp(56px, 6vw, 100px); gap: var(--item-gap); animation: drift 180s linear infinite; }
-  /* Both internal and inter-group spacing use the same gap; include half
-     the track gap in the translation to advance exactly one group. */
-  .marquee-group { display: flex; flex-shrink: 0; align-items: center; gap: var(--item-gap); font-size: 11px; line-height: 1.5; letter-spacing: .09em; white-space: nowrap; }
-  @keyframes drift { to { transform: translateX(calc(-50% - var(--item-gap) / 2)); } }
+
+  /* ========================================
+     MARQUEE
+     ======================================== */
+
+  .marquee {
+    overflow: hidden;
+
+    width: 100%;
+
+    flex-shrink: 0;
+
+    padding-block: 14px;
+
+    border-block:
+      1px solid currentColor;
+
+    color: var(--color-ink);
+  }
+
+  .marquee-track {
+    display: flex;
+
+    width: max-content;
+
+    --item-gap:
+      clamp(
+        56px,
+        6vw,
+        100px
+      );
+
+    gap: var(--item-gap);
+
+    animation:
+      drift
+      180s
+      linear
+      infinite;
+  }
+
+  .marquee-group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+
+    gap: var(--item-gap);
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    letter-spacing: .09em;
+
+    white-space: nowrap;
+  }
+
+  @keyframes drift {
+    to {
+      transform:
+        translateX(
+          calc(
+            -50%
+            - var(--item-gap) / 2
+          )
+        );
+    }
+  }
+
+
+  /* ========================================
+     MOBILE
+     ======================================== */
+
   @media (max-width: 700px) {
-    .hero { padding-top: 88px; }
-    .hero-art { gap: clamp(40px, 7svh, 64px); padding-block: 0 clamp(48px, 8svh, 80px); }
-    h1 { width: min(100%, 440px, 60svh); aspect-ratio: 1510 / 1035; grid-template-rows: 20.542% 65.1613% 1fr; }
+
+    .hero {
+      padding-top: 88px;
+    }
+
+    .hero-art {
+      gap:
+        clamp(
+          40px,
+          7svh,
+          64px
+        );
+
+      padding-block:
+        0
+        clamp(
+          48px,
+          8svh,
+          80px
+        );
+    }
+
+    h1 {
+      width:
+        min(
+          100%,
+          440px,
+          60svh
+        );
+
+      aspect-ratio:
+        1510 / 1035;
+
+      grid-template-rows:
+        20.542%
+        65.1613%
+        1fr;
+    }
+
     .hero-title-art {
       width: 98.729%;
     }
-    .studio-drawing { width: min(92%, 380px, 65svh); }
+
+    .studio-drawing {
+      width:
+        min(
+          92%,
+          380px,
+          65svh
+        );
+    }
+
+.soft-open-sale {
+  width: 23%;
+  top: 0;
+  right: 0;
+  transform: translateY(-65%);
+}
+
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .sign-light::before {
+      animation: none;
+    }
   }
-  @media (prefers-reduced-motion: reduce) { .marquee-track, .sign-light::before { animation: none; } }
 </style>
 
 <script>
-  const signLight = document.querySelector<HTMLButtonElement>('.sign-light');
-  const lightHint = document.querySelector<HTMLElement>('.light-hint-text');
-  const root = document.documentElement;
+  const signLight =
+    document.querySelector<HTMLButtonElement>(
+      '.sign-light'
+    );
+
+  const lightHint =
+    document.querySelector<HTMLElement>(
+      '.light-hint-text'
+    );
+
+  const root =
+    document.documentElement;
+
 
   const syncTheme = () => {
-    const night = root.dataset.theme === 'night';
-    const yogaTitle = document.querySelector<HTMLImageElement>('#yoga-title img');
+
+    const night =
+      root.dataset.theme === 'night';
+
+
+    const yogaTitle =
+      document.querySelector<HTMLImageElement>(
+        '#yoga-title img'
+      );
+
+
     if (yogaTitle) {
-      const src = night ? yogaTitle.dataset.nightSrc : yogaTitle.dataset.daySrc;
-      if (src && yogaTitle.getAttribute('src') !== src) yogaTitle.setAttribute('src', src);
+
+      const src =
+        night
+          ? yogaTitle.dataset.nightSrc
+          : yogaTitle.dataset.daySrc;
+
+
+      if (
+        src &&
+        yogaTitle.getAttribute('src') !== src
+      ) {
+        yogaTitle.setAttribute(
+          'src',
+          src
+        );
+      }
     }
+
+
     signLight?.setAttribute(
       'aria-label',
-      night ? '조명을 끄고 주간 모드로 돌아가기' : '조명을 켜고 야간 모드 보기'
+      night
+        ? '조명을 끄고 주간 모드로 돌아가기'
+        : '조명을 켜고 야간 모드 보기'
     );
+
 
     if (lightHint) {
-      lightHint.textContent = window.innerWidth <= 700 ? 'TAP' : 'CLICK';
+
+      lightHint.textContent =
+        window.innerWidth <= 700
+          ? 'TAP'
+          : 'CLICK';
     }
 
-    document.querySelector('meta[name="theme-color"]')?.setAttribute(
-      'content',
-      night ? '#211F1E' : '#FAF6E6'
-    );
+
+    document
+      .querySelector(
+        'meta[name="theme-color"]'
+      )
+      ?.setAttribute(
+        'content',
+        night
+          ? '#211F1E'
+          : '#FAF6E6'
+      );
   };
+
+
   syncTheme();
-  new MutationObserver(syncTheme).observe(root, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
-  });
-  signLight?.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'night' ? 'day' : 'night';
-    try { sessionStorage.setItem('ullim-theme', root.dataset.theme); } catch { /* Storage may be unavailable; toggling still works. */ }
-  });
+
+
+  new MutationObserver(
+    syncTheme
+  ).observe(
+    root,
+    {
+      attributes: true,
+      attributeFilter: [
+        'data-theme'
+      ],
+    }
+  );
+
+
+  signLight?.addEventListener(
+    'click',
+    () => {
+
+      root.dataset.theme =
+        root.dataset.theme === 'night'
+          ? 'day'
+          : 'night';
+
+
+      try {
+
+        sessionStorage.setItem(
+          'ullim-theme',
+          root.dataset.theme
+        );
+
+      } catch {
+        /* Storage may be unavailable;
+           toggling still works. */
+      }
+    }
+  );
 </script>
