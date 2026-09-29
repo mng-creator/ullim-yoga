@@ -2,38 +2,82 @@
 import '../styles/global.css';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-interface Props { title?: string; description?: string; }
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
 const {
   title = '울림요가 | 성남 모란 요가 · 사운드배스',
-  description = '성남 모란의 작은 요가 스튜디오, 울림요가. 현재의 몸을 이해하고 나에게 필요한 움직임과 쉼을 찾아가는 요가와 사운드배스 클래스를 운영합니다.',
+  description =
+    '성남 모란의 작은 요가 스튜디오, 울림요가. 현재의 몸을 이해하고 나에게 필요한 움직임과 쉼을 찾아가는 요가와 사운드배스 클래스를 운영합니다.',
 } = Astro.props;
+
 const publicOrigin = 'https://ullimyoga.com';
 const canonicalURL = new URL(Astro.url.pathname, publicOrigin).href;
-// Dedicated studio illustration preview on warm ivory.
-// Enable image metadata only when the real asset exists, never a broken URL.
+
+// OG image
 const ogImagePath = '/images/og/ullim-yoga-og.png';
 const hasOgImage = existsSync(resolve('public', ogImagePath.slice(1)));
 const ogImageURL = new URL(ogImagePath, publicOrigin).href;
 
+/**
+ * Ullim Yoga entity
+ *
+ * 울림요가 / Ullim Yoga / 성남 / 모란 /
+ * Hatha Yoga / Sound Bath 사이의 관계를
+ * 검색엔진과 AI가 명확하게 이해할 수 있도록 구성.
+ */
 const localBusiness = {
   '@context': 'https://schema.org',
-  '@type': ['LocalBusiness', 'SportsActivityLocation'],
+
+  '@type': [
+    'LocalBusiness',
+    'SportsActivityLocation',
+  ],
+
+  '@id': 'https://ullimyoga.com/#studio',
+
   name: '울림요가',
   alternateName: 'Ullim Yoga',
-  description: `${description} 일요일은 15:00–19:00 사운드배스 예약제로 운영합니다.`,
+
+  description:
+    '울림요가는 경기도 성남시 중원구 성남동, 모란역 인근에 위치한 요가 스튜디오입니다. 하타요가를 기반으로 요가, 사운드배스, 움직임과 회복을 위한 클래스를 운영합니다.',
+
   url: 'https://ullimyoga.com',
+
   image: hasOgImage ? ogImageURL : undefined,
+
   address: {
     '@type': 'PostalAddress',
     streetAddress: '둔촌대로113번길 8, 1층',
-    addressLocality: '성남시 중원구',
+    addressLocality: '성남시',
     addressRegion: '경기도',
     addressCountry: 'KR',
   },
+
+  areaServed: [
+    {
+      '@type': 'City',
+      name: '성남시',
+    },
+    {
+      '@type': 'Place',
+      name: '모란',
+    },
+  ],
+
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+      ],
       opens: '13:00',
       closes: '22:00',
     },
@@ -50,60 +94,157 @@ const localBusiness = {
       closes: '19:00',
     },
   ],
+
   priceRange: '₩₩',
+
   sameAs: [
     'https://www.instagram.com/ullim.yoga/',
   ],
+
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: '울림요가 프로그램',
+    itemListElement: [
+      {
+        '@type': 'OfferCatalog',
+        name: 'Yoga',
+      },
+      {
+        '@type': 'OfferCatalog',
+        name: 'Sound Bath',
+      },
+    ],
+  },
+
   knowsAbout: [
+    'Hatha Yoga',
     'Yoga',
     'Sound Bath',
     'Movement',
     'Recovery',
   ],
 };
-
 ---
+
 <!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="naver-site-verification" content="96eb6dfce9abe1921afcc456747d73368ee314bd" />
+
+    <!-- Naver Search Advisor -->
+    <meta
+      name="naver-site-verification"
+      content="96eb6dfce9abe1921afcc456747d73368ee314bd"
+    />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+
+    <!-- Basic SEO -->
+    <title>{title}</title>
     <meta name="description" content={description} />
-    <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
-    <meta name="theme-color" content="#FAF6E6" />
-    <script is:inline>
-      // Restore only an explicit choice from this tab, before the first paint.
-      try {
-        if (sessionStorage.getItem('ullim-theme') === 'night') {
-          document.documentElement.dataset.theme = 'night';
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#211F1E');
-        }
-      } catch { /* Default to day when storage is unavailable. */ }
-    </script>
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Structured Data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(localBusiness)}
+    />
+
+    <!-- Open Graph -->
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    {hasOgImage && <>
-      <meta property="og:image" content={ogImageURL} />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="울림요가 스튜디오 건물 일러스트" />
-      <meta name="twitter:image" content={ogImageURL} />
-      <meta name="twitter:image:alt" content="울림요가 스튜디오 건물 일러스트" />
-    </>}
-    <title>{title}</title>
+
+    <!-- Twitter / X -->
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta
+      name="twitter:description"
+      content={description}
+    />
+
+    {
+      hasOgImage && (
+        <>
+          <meta
+            property="og:image"
+            content={ogImageURL}
+          />
+          <meta
+            property="og:image:type"
+            content="image/png"
+          />
+          <meta
+            property="og:image:width"
+            content="1200"
+          />
+          <meta
+            property="og:image:height"
+            content="630"
+          />
+          <meta
+            property="og:image:alt"
+            content="울림요가 스튜디오 건물 일러스트"
+          />
+
+          <meta
+            name="twitter:image"
+            content={ogImageURL}
+          />
+          <meta
+            name="twitter:image:alt"
+            content="울림요가 스튜디오 건물 일러스트"
+          />
+        </>
+      )
+    }
+
+    <!-- Theme -->
+    <meta
+      name="theme-color"
+      content="#FAF6E6"
+    />
+
+    <script is:inline>
+      // Restore only an explicit choice from this tab,
+      // before the first paint.
+      try {
+        if (
+          sessionStorage.getItem('ullim-theme') ===
+          'night'
+        ) {
+          document.documentElement.dataset.theme =
+            'night';
+
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute('content', '#211F1E');
+        }
+      } catch {
+        // Default to day when storage is unavailable.
+      }
+    </script>
   </head>
+
   <body>
-    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <a class="skip-link" href="#main">
+      본문으로 건너뛰기
+    </a>
+
     <slot />
   </body>
 </html>
