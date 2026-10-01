@@ -11,8 +11,9 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
 <div class="reservation-wrap">
   <div class="reservation-panel" id="reservation-panel" hidden>
     <strong>예약 페이지를 준비하고 있어요.</strong>
-    <span>조금만 기다려주세요.</span>
-    <span>수업 및 예약 문의는 <span lang="en">Instagram DM</span>으로 남겨주세요.</span>
+    <span>수업 및 예약 문의는<br />
+      <span lang="en">Instagram DM</span> 또는 <a href="https://naver.me/5HyBanCi" target="_blank" rel="noopener noreferrer">네이버 지도</a>에 표기된 연락처로 문자 남겨주세요.</span>
+    <span>수업 중에는 전화 및 방문 상담이 어려울 수 있습니다.</span>
     <a lang="en" href={instagramUrl} target="_blank" rel="noopener noreferrer">@ullim.yoga ↗</a>
   </div>
 
@@ -34,11 +35,11 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     bottom: max(24px, env(safe-area-inset-bottom));
     z-index: 30;
     margin: 0;
-    color: var(--floating-ink);
+    color: var(--floating-ink, var(--color-ink));
     font-size: 11px;
     font-weight: 400;
     line-height: 1.6;
-    letter-spacing: .08em;
+    letter-spacing: .04em;
     text-decoration: none;
   }
 
@@ -68,7 +69,7 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     font-size: 10px;
     font-weight: 400;
     line-height: 1.6;
-    letter-spacing: .08em;
+    letter-spacing: .04em;
   }
 
   .reservation-panel {
@@ -92,7 +93,7 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
 
   .reservation-panel strong,
   .reservation-panel > span,
-  .reservation-panel a {
+  .reservation-panel > a {
     display: block;
   }
 
@@ -101,8 +102,15 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     font-weight: 500;
   }
 
-  .reservation-panel a {
+  .reservation-panel > a {
     margin-top: 10px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .reservation-panel [lang='en'] { letter-spacing: .04em; }
+  .reservation-panel > span + span { margin-top: 10px; }
+  .reservation-panel span a {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -134,7 +142,7 @@ const instagramUrl = 'https://www.instagram.com/ullim.yoga/';
     }
 
     .floating-location {
-      display: none;
+      display: block;
     }
 
     .reservation-wrap {

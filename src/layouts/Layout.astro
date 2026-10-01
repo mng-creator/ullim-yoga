@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import FloatingMeta from '../components/FloatingMeta.astro';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -246,5 +247,6 @@ const localBusiness = {
     </a>
 
     <slot />
+    <FloatingMeta />
   </body>
 </html>
