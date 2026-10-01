@@ -19,10 +19,6 @@ const message = {
       <p>MON–FRI 13:00–22:00</p>
       <p>SAT–SUN 15:00–19:00</p>
       <p>공휴일 휴무</p>
-      <p class="consultation-note">
-        수업 중에는 방문 상담이 제한될 수 있습니다.<br />
-        상담 및 문의는 Instagram DM으로 남겨주세요.
-      </p>
     </section>
 
     <div class="closing-reservation">
@@ -37,7 +33,9 @@ const message = {
 
       <div id="closing-reservation-panel" class="closing-reservation-panel" hidden>
         <p><strong>예약 페이지를 준비하고 있어요.</strong></p>
-        <p>수업 및 예약 문의는 <span lang="en">Instagram DM</span>으로 남겨주세요.</p>
+        <p>수업 및 예약 문의는<br />
+          <span lang="en">Instagram DM</span> 또는 <a href="https://naver.me/5HyBanCi" target="_blank" rel="noopener noreferrer">네이버 지도</a>에 표기된 연락처로 문자 남겨주세요.</p>
+        <p>수업 중에는 전화 및 방문 상담이 어려울 수 있습니다.</p>
         <a
           lang="en"
           href="https://www.instagram.com/ullim.yoga/"
@@ -141,7 +139,6 @@ const message = {
   }
   .opening-hours h3 { margin: 0 0 8px; font-size: inherit; font-weight: 400; }
   .opening-hours p { margin: 0; }
-  .opening-hours .consultation-note { margin-top: 12px; }
 
   .closing-reservation-trigger {
     padding: 3px 0;
@@ -150,7 +147,7 @@ const message = {
     text-decoration: none;
     background: transparent;
     color: var(--color-ink);
-    font: 400 13px/1.6 var(--font-sans);
+    font: 400 13px/1.6 var(--font-body);
     letter-spacing: -.02em;
     cursor: pointer;
   }
@@ -173,11 +170,19 @@ const message = {
     letter-spacing: -.02em;
   }
 
+  .closing-reservation-panel [lang='en'] { letter-spacing: .04em; }
+
+  .closing-reservation-panel p a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   .closing-reservation-panel strong {
     font-weight: 500;
   }
 
-  .closing-reservation-panel a {
+  .closing-reservation-panel > a {
     display: inline-block;
     margin-top: 2px;
     color: inherit;
