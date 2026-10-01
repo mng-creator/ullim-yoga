@@ -1,7 +1,7 @@
 ---
 type HeroState = 'coming-soon' | 'soft-open' | 'grand-open';
 
-const heroState: HeroState = 'soft-open';
+const heroState: HeroState = 'grand-open';
 
 const artworks = {
   'coming-soon': {
@@ -80,11 +80,11 @@ const artwork = artworks[heroState];
       ></span>
 
       {
-        heroState === 'soft-open' && (
+        heroState === 'grand-open' && (
           <img
             class="soft-open-sale"
-            src="/svg/15-off.svg"
-            alt="소프트 오픈 기간 한정 15% 할인"
+            src="/svg/go-15-off.svg"
+            alt="정식 오픈 혜택: 2026.10.01–2026.10.10 클래스 패스 15% 할인"
           />
         )
       }
@@ -241,7 +241,7 @@ const artwork = artworks[heroState];
 
 
   /* ========================================
-     SOFT OPEN 15% OFF
+     GRAND OPEN 15% OFF
      ======================================== */
 
   .soft-open-sale {

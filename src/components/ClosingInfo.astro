@@ -1,14 +1,14 @@
 ---
 const message = {
-  title: '상담 및 예약이 시작되었어요',
+  title: '울림요가가 정식 오픈했어요',
 };
 ---
 <section class="closing-info page-shell" aria-labelledby="closing-title">
   <div class="closing-copy">
     <h2 id="closing-title">{message.title}</h2>
     <div class="closing-details">
-      <p class="message-strip"><span><span lang="en">Soft Open</span> 기간에도 수업에 참여하실 수 있어요</span></p>
-      <p class="message-strip">10월 정식 오픈 예정입니다</p>
+      <p class="message-strip"><span>정식 오픈 혜택 · 2026.10.01–2026.10.10 클래스 패스 15% 할인</span></p>
+      <p class="message-strip">2인 이상 동반 등록 시 해당 기간 할인가에서 추가 5% 할인</p>
     </div>
 
     <div class="closing-location" aria-label="울림요가 위치">
@@ -16,10 +16,13 @@ const message = {
     </div>
     <section class="opening-hours" aria-labelledby="opening-hours-title">
       <h3 id="opening-hours-title">운영 안내</h3>
-      <p>월–금 13:00–22:00</p>
-      <p>토 15:00–19:00</p>
-      <p>일 15:00–19:00 · 사운드배스 예약제로 운영</p>
+      <p>MON–FRI 13:00–22:00</p>
+      <p>SAT–SUN 15:00–19:00</p>
       <p>공휴일 휴무</p>
+      <p class="consultation-note">
+        수업 중에는 방문 상담이 제한될 수 있습니다.<br />
+        상담 및 문의는 Instagram DM으로 남겨주세요.
+      </p>
     </section>
 
     <div class="closing-reservation">
@@ -138,6 +141,7 @@ const message = {
   }
   .opening-hours h3 { margin: 0 0 8px; font-size: inherit; font-weight: 400; }
   .opening-hours p { margin: 0; }
+  .opening-hours .consultation-note { margin-top: 12px; }
 
   .closing-reservation-trigger {
     padding: 3px 0;
