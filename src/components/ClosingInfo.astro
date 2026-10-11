@@ -7,8 +7,8 @@ const message = {
   <div class="closing-copy">
     <h2 id="closing-title">{message.title}</h2>
     <div class="closing-details">
-      <p class="message-strip"><span>정식 오픈 혜택 · 2026.10.01–2026.10.10 클래스 패스 15% 할인</span></p>
-      <p class="message-strip">2인 이상 동반 등록 시 해당 기간 할인가에서 추가 5% 할인</p>
+      <p class="message-strip"><span>정식 오픈 혜택 · <span lang="en">10.11–10.20</span> 클래스 패스 <span lang="en">10%</span> 할인</span></p>
+      <p class="message-strip"><span><span lang="en">2</span>인 이상 동반 등록 시 할인가에서 추가 <span lang="en">5%</span> 할인</span></p>
     </div>
 
     <div class="closing-location" aria-label="울림요가 위치">
@@ -89,6 +89,10 @@ const message = {
     word-break: keep-all;
     overflow-wrap: break-word;
     text-wrap: balance;
+  }
+  .message-strip [lang='en'] {
+    font-weight: 500;
+    letter-spacing: .04em;
   }
   .message-strip:first-child {
     width: min(46vw, 620px);
