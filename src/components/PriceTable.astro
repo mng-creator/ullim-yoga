@@ -108,8 +108,8 @@ import { regularPrices } from '../lib/promotion.js';
 
     <ul>
       <li data-promotion-only hidden>
-        정식 오픈 혜택: <span lang="en" data-promotion-period></span>
-        <span lang="en">8·12·24·36</span>회 클래스 패스 <span lang="en" data-promotion-percent></span> 할인
+        정식 오픈 혜택: <span lang="en" data-promotion-period></span><span class="promo-separator" lang="en">/</span>
+        <span class="promo-pass-info"><span lang="en">8·12·24·36</span>회 클래스 패스 <span lang="en" data-promotion-percent></span> 할인</span>
       </li>
 
       <li data-promotion-only hidden>
@@ -117,8 +117,7 @@ import { regularPrices } from '../lib/promotion.js';
       </li>
 
       <li>
-        <span lang="en">Drop-in</span>과
-        <span lang="en"> Sound Bath</span>는 할인 대상에서 제외됩니다.
+        <span lang="en">Drop-in</span>과 <span lang="en">Sound Bath</span>는 할인 대상에서 제외됩니다.
       </li>
 
       <li>
@@ -398,6 +397,11 @@ import { regularPrices } from '../lib/promotion.js';
     padding-left: 1px;
   }
 
+  .promo-separator {
+    display: inline-block;
+    margin-inline: .4em;
+  }
+
   .price-guide [lang='en'] {
     font-family: var(--font-body);
     font-weight: 500;
@@ -484,6 +488,9 @@ import { regularPrices } from '../lib/promotion.js';
       font-size: 12px;
     }
 
+
+    .promo-separator { display: none; }
+    .promo-pass-info { display: block; }
 
     /* GUIDE */
     .price-guide {
