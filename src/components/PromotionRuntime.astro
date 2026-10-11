@@ -1,0 +1,11 @@
+<style is:global>
+  /* Conceal only dynamic promotion content until the runtime has synchronized it. */
+  [data-promotion-pending] { visibility: hidden; }
+  [data-promotion-only][hidden],
+  [data-promotion-svg][hidden],
+  [data-regular-discount][hidden] { display: none !important; }
+</style>
+<script>
+  import { startPromotionRuntime } from '../lib/promotion-runtime.js';
+  startPromotionRuntime();
+</script>

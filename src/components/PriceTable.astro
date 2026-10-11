@@ -1,14 +1,18 @@
+---
+import PromotionRuntime from './PromotionRuntime.astro';
+import { regularPrices } from '../lib/promotion.js';
+---
 <section class="price-section" aria-labelledby="price-title">
-  <div class="price-card">
+  <div class="price-card" data-promotion-pending>
 
     <!-- TITLE -->
     <header class="price-heading">
       <h1 id="price-title" lang="en">CLASS PASSES</h1>
 
-<p class="promo-copy">
+<p class="promo-copy" data-promotion-only hidden>
   <span>정식 오픈 혜택</span>
   <span>
-    <span class="promo-number">10.11–10.20</span> 클래스 패스 <span class="promo-number">10%</span> 할인
+    <span class="promo-number" data-promotion-period></span> 클래스 패스 <span class="promo-number" data-promotion-percent></span> 할인
     (<span class="promo-number">2</span>인 이상 동반 등록 시 할인가에서 추가 <span class="promo-number">5%</span>)
   </span>
 </p>
@@ -18,8 +22,8 @@
     <!-- COLUMN LABELS -->
     <div class="column-head" aria-hidden="true">
       <span></span>
-      <span lang="en">REGULAR</span>
-      <span lang="en">FINAL</span>
+      <span lang="en" data-regular-discount hidden>REGULAR</span>
+      <span lang="en" data-price-label>PRICE</span>
     </div>
 
 
@@ -40,34 +44,34 @@
 
         <div class="price-row">
           <div class="pass-name" lang="en">8-CLASS PASS</div>
-          <div class="regular-price" lang="en">
+          <div class="regular-price" lang="en" data-regular-discount hidden>
             <del>₩240,000</del>
           </div>
-          <div class="final-price" lang="en">₩216,000</div>
+          <div class="final-price" lang="en" data-class-price="8">₩{regularPrices[8].toLocaleString('en-US')}</div>
         </div>
 
         <div class="price-row">
           <div class="pass-name" lang="en">12-CLASS PASS</div>
-          <div class="regular-price" lang="en">
+          <div class="regular-price" lang="en" data-regular-discount hidden>
             <del>₩336,000</del>
           </div>
-          <div class="final-price" lang="en">₩302,400</div>
+          <div class="final-price" lang="en" data-class-price="12">₩{regularPrices[12].toLocaleString('en-US')}</div>
         </div>
 
         <div class="price-row">
           <div class="pass-name" lang="en">24-CLASS PASS</div>
-          <div class="regular-price" lang="en">
+          <div class="regular-price" lang="en" data-regular-discount hidden>
             <del>₩600,000</del>
           </div>
-          <div class="final-price" lang="en">₩540,000</div>
+          <div class="final-price" lang="en" data-class-price="24">₩{regularPrices[24].toLocaleString('en-US')}</div>
         </div>
 
         <div class="price-row">
           <div class="pass-name" lang="en">36-CLASS PASS</div>
-          <div class="regular-price" lang="en">
+          <div class="regular-price" lang="en" data-regular-discount hidden>
             <del>₩864,000</del>
           </div>
-          <div class="final-price" lang="en">₩777,600</div>
+          <div class="final-price" lang="en" data-class-price="36">₩{regularPrices[36].toLocaleString('en-US')}</div>
         </div>
 
       </div>
@@ -103,12 +107,12 @@
     <h2 id="price-guide-title">이용 안내</h2>
 
     <ul>
-      <li>
-        정식 오픈 혜택: <span lang="en">10.11–10.20</span>
-        <span lang="en">8·12·24·36</span>회 클래스 패스 <span lang="en">10%</span> 할인
+      <li data-promotion-only hidden>
+        정식 오픈 혜택: <span lang="en" data-promotion-period></span>
+        <span lang="en">8·12·24·36</span>회 클래스 패스 <span lang="en" data-promotion-percent></span> 할인
       </li>
 
-      <li>
+      <li data-promotion-only hidden>
         <span lang="en">2</span>인 이상 동반 등록 시 할인가에서 추가 <span lang="en">5%</span> 할인
       </li>
 
@@ -239,6 +243,12 @@
     column-gap: 14px;
   }
 
+
+  /* Keep prices in the same column when the expired discount column is hidden. */
+  .final-price,
+  [data-price-label] {
+    grid-column: 3;
+  }
 
   /* ========================================
      REGULAR / FINAL
@@ -507,3 +517,4 @@
     }
   }
 </style>
+<PromotionRuntime />
